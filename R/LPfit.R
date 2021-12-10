@@ -1,0 +1,78 @@
+#' Estimating a lognormal-Pareto mixture by maximizing the profile log-likelihood
+#'
+#' This function fits a lognormal-Pareto mixture by maximizing the profile log-likelihood.
+#' @param y numerical vector: random sample from the mixture.
+#' @param minRank integer: minimum possible rank of the threshold.
+#' @return A list with the following elements:
+#' 
+#' xmin: estimated threshold.
+#' 
+#' prior: estimated mixing weight.
+#' 
+#' postProb: matrix of posterior probabilities.
+#' 
+#' alpha: estimated Pareto shape parameter.
+#' 
+#' mu: estimated expectation of the lognormal distribution on the lognormal scale.
+#' 
+#' sigma: estimated standard deviation of the lognormal distribution on the lognormal scale.
+#' 
+#' loglik: maximied log-likelihood.
+#' 
+#' nit: number of iterations.
+#' 
+#' npareto: estimated number of Pareto observations.
+#' 
+#' bootstd: bootstrap standard errors of the parameter estimators.
+#' @details At each bootstrap replication, the mixture is estimated with thresholds equal to ys(n-nthresh), ys(n-nthresh+1),..., ys(n),
+#' where n is the sample size and ys is the sample in ascending order.
+#' @keywords mixture; profile likelihood.
+#' @export
+#' @examples
+#' mixFit <- LPfit(y,90,0)
+
+LPfit <- function(y,minRank,nbootMLE)
+{
+  ys <- sort(y)
+  n <- length(ys)
+  
+  # initial values
+  
+  a0 <- ys[length(ys)-minRank]
+  p0 <- length(ys[ys<a0])/n
+  alpha0 <- length(ys[ys>a0]) / (sum(log(ys[ys>a0]/a0))) 
+  mu0 <- mean(log(ys))+1
+  Psi0 <- var(log(ys))
+  th <- ys
+  nthresh <- length(th)
+  resMat <- matrix(0,nthresh,5)
+  paretoObs <- cbind(th,matrix(0,nthresh,2))
+  for (i in minRank:(n-1))
+  {
+    a <- th[i]
+    Res <- par_logn_mix_known(ys, p0, a, alpha0, mean(ys), sd(ys))
+    resMat[i,] <- c(Res$prior,Res$alpha,Res$mu,Res$sigma,Res$loglik)
+  }
+  indice <- which.max(resMat[,5])
+  xminhat <- th[indice]
+  resBest <- par_logn_mix_known(ys, p0, xminhat, alpha0, mean(ys), sd(ys))
+  npareto <- n * (1-resBest$prior)
+  prior <- resBest$prior
+  postProb <- resBest$post
+  alpha <- resBest$alpha
+  mu <- resBest$mu
+  sigma <- resBest$sigma
+  loglik <- resBest$loglik
+  nit <- resBest$nit
+  if (nbootMLE==0)
+  {
+    results <- list(xmin=xminhat,prior=prior,postProb=postProb,alpha=alpha,mu=as.double(mu),sigma=as.vector(sigma),loglik=loglik,nit=nit,npareto=npareto)
+    return(results)
+  }
+  else
+  {
+    resBoot <- MLEBoot(ys,nbootMLE,nthresh,p0,alpha0,mean(ys),var(ys))
+    results <- list(xmin=xminhat,prior=prior,postProb=postProb,alpha=alpha,mu=as.double(mu),sigma=as.vector(sigma),loglik=loglik,nit=nit,npareto=npareto,bootstd=resBoot$std)
+    return(results)
+  }
+}
