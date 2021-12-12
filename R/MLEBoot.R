@@ -2,12 +2,12 @@
 #'
 #' This function computes non-parametric bootstrap standard errors for the estimators of a lognormal-Pareto mixture distribution.
 #' @param y numerical vector: random sample from the mixture.
-#' @param nboot number of bootstrap replications.
-#' @param nthresh minimum possible rank of the threshold.
-#' @param p0 starting value of the mixing weight.
-#' @param alpha0 starting value of the Pareto shape parameter.
-#' @param mu0 starting value of the expectation of the lognormal distribution on the log scale.
-#' @param mu0 starting value of the standard deviation of the lognormal distribution on the log scale.
+#' @param nboot integer: number of bootstrap replications.
+#' @param nthresh integer: minimum possible rank of the threshold.
+#' @param p0 (0<p0<1): starting value of the mixing weight.
+#' @param alpha0 non-negative scalar: starting value of the Pareto shape parameter.
+#' @param mu0 scalar: starting value of the expectation of the lognormal distribution on the log scale.
+#' @param sigma0 non-negative scalar: starting value of the standard deviation of the lognormal distribution on the log scale.
 #' @return bootstrap standard errors of the estimators.
 #' @keywords mixture; profile likelihood; EM algorithm.
 #' @details At each bootstrap replication, the mixture is estimated with thresholds equal to ys(n-nthresh), ys(n-nthresh+1),..., ys(n),
@@ -15,9 +15,9 @@
 #' @export
 #' @examples
 #' resBoot <- MLEBoot(y,100,20,.5,1.5,0,1)
-#' 
+#'
 #' # Now call MLEBoot from LPfit
-#' 
+#'
 #' resFit <- LPfit(y,90,500)
 #' parsStd <- resFit$bootstd
 #' @references  Bee, M. (2020), “On discriminating between lognormal and Pareto tail: a mixture-based approach”, DEM working paper 2020/9. https://www.economia.unitn.it/alfresco/download/workspace/SpacesStore/06b9cd83-9754-4b9e-8e7c-7954d43395b7/DEM2020_09.pdf
@@ -34,7 +34,7 @@ MLEBoot = function(y,nboot,nthresh,p0,alpha0,mu0,Psi0)
   {
     indici = sample(samSiz, samSiz, replace = TRUE)
     yboot = sort(y[indici])
-    th <- yboot[(n-nthresh):n] 
+    th <- yboot[(n-nthresh):n]
     nthresh <- length(th)
     resMat <- matrix(0,nthresh,5)
     paretoObs <- cbind(th,matrix(0,nthresh,2))

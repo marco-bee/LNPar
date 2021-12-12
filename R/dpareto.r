@@ -1,4 +1,4 @@
-#' density of a Pareto r.v.   
+#' density of a Pareto r.v.
 #'
 #' This function computes the density of a Pareto r.v.
 #' @param x numerical vector: values where the density has to be evaluated.

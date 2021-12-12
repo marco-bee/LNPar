@@ -2,27 +2,27 @@
 #'
 #' This function estimates the parameters of a Pareto and a lognormal density, assuming a known threshold.
 #' @param y numerical vector: random sample from the mixture.
-#' @param prior1 scalar, 0<prior1<1: starting value of the prior probability.
+#' @param prior1 scalar (0<prior1<1): starting value of the prior probability.
 #' @param th scalar: threshold.
 #' @param alpha non-negative scalar: starting value of the Pareto shape parameter.
 #' @param mu scalar: starting value of the lognormal parameter mu.
 #' @param sigma scalar: starting value of the lognormal parameter sigma.
 #' @return A list with the following elements:
-#' 
+#'
 #' xmin: estimated threshold.
-#' 
+#'
 #' prior: estimated mixing weight.
-#' 
+#'
 #' post: matrix of posterior probabilities.
-#' 
+#'
 #' alpha: estimated Pareto shape parameter.
-#' 
+#'
 #' mu: estimated expectation of the lognormal distribution on the lognormal scale.
-#' 
+#'
 #' sigma: estimated standard deviation of the lognormal distribution on the lognormal scale.
-#' 
+#'
 #' loglik: maximied log-likelihood.
-#' 
+#'
 #' nit: number of iterations.
 #' @keywords mixture, EM algorithm.
 #' @export
