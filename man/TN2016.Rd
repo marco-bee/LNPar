@@ -3,7 +3,7 @@
 \docType{data}
 \name{TN2016}
 \alias{TN2016}
-\title{Number of employees in year 2016 in all the firms of the Trento district in Northern Italy.}
+\title{Number of employees in year 2016 in all the firms of the Trento district}
 \format{
 A numerical vector with 183 rows and 1 column.
 }
@@ -14,6 +14,6 @@ A numerical vector with 183 rows and 1 column.
 TN2016
 }
 \description{
-A dataset containing the number of employees in year 2016 in all the firms of the Trento district.
+A dataset containing the number of employees in year 2016 in all the firms of the Trento district in Northern Italy.
 }
 \keyword{datasets}
