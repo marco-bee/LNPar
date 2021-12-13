@@ -39,7 +39,7 @@ This function fits a lognormal-Pareto mixture by maximizing the profile log-like
 }
 \details{
 At each bootstrap replication, the mixture is estimated with thresholds equal to ys(n-nthresh), ys(n-nthresh+1),..., ys(n),
-where n is the sample size and ys is the sample in ascending order.
+where n is the sample size and ys is the sample sorted in in ascending order.
 }
 \examples{
 mixFit <- LPfit(TN2016,90,0)
