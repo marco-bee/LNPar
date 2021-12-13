@@ -17,7 +17,7 @@ dpareto(x, xmin, alpha)
 Density of the Pareto distribution evaluated at x.
 }
 \description{
-This function computes the density of a Pareto r.v.
+This function evaluates the density of a Pareto r.v.s
 }
 \examples{
 parDens <- dPareto(5,4,1.5)

@@ -34,7 +34,7 @@ mu: estimated expectation of the lognormal distribution on the lognormal scale.
 
 sigma: estimated standard deviation of the lognormal distribution on the lognormal scale.
 
-loglik: maximied log-likelihood.
+loglik: maximized log-likelihood.
 
 nit: number of iterations.
 }

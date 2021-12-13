@@ -4,43 +4,43 @@
 #' @param y numerical vector: random sample from the mixture.
 #' @param minRank integer: minimum possible rank of the threshold.
 #' @return A list with the following elements:
-#' 
+#'
 #' xmin: estimated threshold.
-#' 
+#'
 #' prior: estimated mixing weight.
-#' 
+#'
 #' postProb: matrix of posterior probabilities.
-#' 
+#'
 #' alpha: estimated Pareto shape parameter.
-#' 
+#'
 #' mu: estimated expectation of the lognormal distribution on the lognormal scale.
-#' 
+#'
 #' sigma: estimated standard deviation of the lognormal distribution on the lognormal scale.
-#' 
+#'
 #' loglik: maximied log-likelihood.
-#' 
+#'
 #' nit: number of iterations.
-#' 
+#'
 #' npareto: estimated number of Pareto observations.
-#' 
+#'
 #' bootstd: bootstrap standard errors of the parameter estimators.
 #' @details At each bootstrap replication, the mixture is estimated with thresholds equal to ys(n-nthresh), ys(n-nthresh+1),..., ys(n),
 #' where n is the sample size and ys is the sample in ascending order.
 #' @keywords mixture; profile likelihood.
 #' @export
 #' @examples
-#' mixFit <- LPfit(y,90,0)
+#' mixFit <- LPfit(TN2016,90,0)
 
 LPfit <- function(y,minRank,nbootMLE)
 {
   ys <- sort(y)
   n <- length(ys)
-  
+
   # initial values
-  
+
   a0 <- ys[length(ys)-minRank]
   p0 <- length(ys[ys<a0])/n
-  alpha0 <- length(ys[ys>a0]) / (sum(log(ys[ys>a0]/a0))) 
+  alpha0 <- length(ys[ys>a0]) / (sum(log(ys[ys>a0]/a0)))
   mu0 <- mean(log(ys))+1
   Psi0 <- var(log(ys))
   th <- ys

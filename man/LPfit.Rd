@@ -42,7 +42,7 @@ At each bootstrap replication, the mixture is estimated with thresholds equal to
 where n is the sample size and ys is the sample in ascending order.
 }
 \examples{
-mixFit <- LPfit(y,90,0)
+mixFit <- LPfit(TN2016,90,0)
 }
 \keyword{likelihood.}
 \keyword{mixture;}
