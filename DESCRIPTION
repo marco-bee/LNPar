@@ -1,5 +1,5 @@
 Package: LNPar
-Title: What the Package Does (One Line, Title Case)
+Title: Functions for estimation and testing of a lognormal-Pareto mixture
 Version: 0.0.0.9000
 Authors@R: 
     person("Marco", "Bee", , "marco.bee@unitn.it", role = c("aut", "cre"),
