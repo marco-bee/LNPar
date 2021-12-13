@@ -21,7 +21,7 @@
 #'
 #' sigma: estimated standard deviation of the lognormal distribution on the lognormal scale.
 #'
-#' loglik: maximied log-likelihood.
+#' loglik: maximized log-likelihood.
 #'
 #' nit: number of iterations.
 #' @keywords mixture, EM algorithm.
