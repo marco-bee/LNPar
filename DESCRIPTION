@@ -13,4 +13,8 @@ Depends:
     R (>= 2.10)
 LazyData: true
 RdMacros: Rdpack
-Imports: Rdpack, evir, MASS, pracma
+Imports:
+         evir,
+         MASS,
+         pracma,
+         Rdpack

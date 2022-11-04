@@ -40,8 +40,8 @@ DynMixfit <- function(yObs,epsilon,k,bootreps)
   mediana = median(yObs)
   y1 = yObs[yObs<mediana]
   y2 = yObs[yObs>=mediana]
-  mu0 = fitdistr(y1,'lognormal')$estimate[1]
-  sigma0 = fitdistr(y1,'lognormal')$estimate[2]
+  mu0 = MASS::fitdistr(y1,'lognormal')$estimate[1]
+  sigma0 = MASS::fitdistr(y1,'lognormal')$estimate[2]
   xi0 = gpd(y2,mediana)$par.ests['xi']
   beta0 = gpd(y2,mediana)$par.ests['beta']
   muc0 = quantile(yObs,.5)

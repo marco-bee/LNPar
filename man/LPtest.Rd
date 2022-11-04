@@ -27,7 +27,9 @@ lr: simulated values of the llr test under the null hypothesis.
 pval: p-value of the test.
 }
 \description{
-This function allows you to compute the bootstrap test for the null hypothesis of a pure lognormal distribution versus the alternative of a lognormal-Pareto mixture.
+This function computes the bootstrap test for the null hypothesis of
+a pure lognormal distribution versus the alternative of a lognormal-Pareto
+mixture.
 }
 \examples{
 resTest <- LPtest(100,0,1,0.67,100,90)

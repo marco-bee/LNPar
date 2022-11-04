@@ -30,8 +30,8 @@ Bootsamples = function(y,nboot)
       mediana = median(yboot)
       y1 = yboot[yboot<mediana]
       y2 = yboot[yboot>=mediana]
-      mu0 = fitdistr(y1,'lognormal')$estimate[1]
-      sigma0 = fitdistr(y1,'lognormal')$estimate[2]
+      mu0 = MASS::fitdistr(y1,'lognormal')$estimate[1]
+      sigma0 = MASS::fitdistr(y1,'lognormal')$estimate[2]
       xi0 = evir::gpd(y2,mediana)$par.ests['xi']
       beta0 = evir::gpd(y2,mediana)$par.ests['beta']
       muc0 = quantile(yboot,.25)

@@ -17,9 +17,9 @@ mu <- pars[3]
 sigma <- pars[4]
 xi <- pars[5]
 beta <- pars[6]
-f <- function(x) (dgpd(x, xi, mu=0, beta)-dlnorm(x,mu,sigma)) * atan((x-muc)/tau)
+f <- function(x) (evir::dgpd(x, xi, mu=0, beta)-dlnorm(x,mu,sigma)) * atan((x-muc)/tau)
 p <- pcauchy(x,muc,tau)
-temp <- (1-p) * dlnorm(x,mu,sigma) + p * dgpd(x, xi, mu=0, beta)
+temp <- (1-p) * dlnorm(x,mu,sigma) + p * evir::dgpd(x, xi, mu=0, beta)
 I <- NULL
 I1 <- 10
 i <- 1

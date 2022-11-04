@@ -30,15 +30,15 @@ AMLEmode <- function(ABCsam)
   for (i in 1:qq)
   {
     vettore = ABCsam[,i]
-    bw = hscv(vettore)
-    f_eps = kde(vettore,bw,eval.points=vettore)
+    bw = ks::hscv(vettore)
+    f_eps = ks::kde(vettore,bw,eval.points=vettore)
     AMLE2[i] = vettore[which.max(f_eps$estimate)]
   }
 
   # 3. multivariate kde
 
-  bw = Hscv(ABCsam)
-  f_eps = kde(ABCsam,bw,eval.points=ABCsam)
+  bw = ks::Hscv(ABCsam)
+  f_eps = ks::kde(ABCsam,bw,eval.points=ABCsam)
   AMLE3 = ABCsam[which.max(f_eps$estimate),]
 
   # 4. maximum of the product of the univariate kernel densities
@@ -47,8 +47,8 @@ AMLEmode <- function(ABCsam)
   for (i in 1:qq)
   {
     vettore = ABCsam[,i]
-    bw = hscv(vettore)
-    f_eps = kde(vettore,bw,eval.points=vettore)
+    bw = ks::hscv(vettore)
+    f_eps = ks::kde(vettore,bw,eval.points=vettore)
     f_eps_g[,i] = f_eps$estimate
   }
   F_eps = apply(f_eps_g,1,prod)

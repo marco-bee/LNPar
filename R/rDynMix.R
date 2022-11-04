@@ -44,7 +44,7 @@ while (i<=nreps)
   }
   else
     {
-    sample=rgpd(n=1,xi=xi,mu=0,beta=beta)
+    sample=evir::rgpd(n=1,xi=xi,mu=0,beta=beta)
     prob=pcauchy(sample,location=CA1,scale=CA2)
     if(runif(1)<prob)
     {

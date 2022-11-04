@@ -1,6 +1,8 @@
 #' Testing for a Pareto tail
 #'
-#' This function allows you to compute the bootstrap test for the null hypothesis of a pure lognormal distribution versus the alternative of a lognormal-Pareto mixture.
+#' This function computes the bootstrap test for the null hypothesis of
+#' a pure lognormal distribution versus the alternative of a lognormal-Pareto
+#' mixture.
 #' @param n sample size
 #' @param muNull lognormal expected value under the null hypothesis.
 #' @param sigmaNull lognormal standard deviation under the null hypothesis.
