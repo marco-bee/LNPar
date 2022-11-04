@@ -17,7 +17,6 @@
 
 AMLEmode <- function(ABCsam)
 {
-  require(ks)
   N = nrow(ABCsam) # ABC sample size
   qq = ncol(ABCsam)
 

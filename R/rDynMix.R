@@ -20,7 +20,6 @@
 
 rDynMix <- function(nreps,x)
 {
-library("evir")
 xi = x[1]
 beta = x[2]
 meanlog = x[3]

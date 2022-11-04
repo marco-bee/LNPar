@@ -8,9 +8,9 @@
 #' @param obsTest value of the test statistics computed with the data under analysis.
 #' @param nboot number of bootstrap replications.
 #' @return A list with the following elements:
-#' 
+#'
 #' lr: simulated values of the llr test under the null hypothesis.
-#' 
+#'
 #' pval: p-value of the test.
 #' @keywords mixture; profile likelihood; log-likelihood ratio test.
 #' @export
@@ -27,14 +27,12 @@ for (i in 1:nboot)
   est0 <- c(mean(log(ysim)),sd(log(ysim)))
   ell0 <- sum(log(dlnorm(ysim,est0[1],est0[2])))
   xmin0 <- quantile(ysim,.45)
-  # p0 <- length(ysim[ysim<xmin0])/n
   p0 <- .75
-  #  alpha0 <- length(ysim[ysim>xmin0]) / (sum(log(ysim[ysim>xmin0]/xmin0)))
   alpha0 <- 3
   mu0 <- mean(log(ysim))+1
   sigma0 <- sd(log(ysim))
   resMat <- matrix(0,n-minRank,5)
-  
+
   for (s in minRank:(n-1))
   {
     a <- ysim[s]

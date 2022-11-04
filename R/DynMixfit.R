@@ -33,8 +33,6 @@
 
 DynMixfit <- function(yObs,epsilon,k,bootreps)
 {
-  library("MASS")
-  library("evir")
   n = length(yObs)
 
   # MLE

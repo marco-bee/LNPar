@@ -11,8 +11,6 @@
 
 ddyn <- function(x,pars)
 {
-library(evir)
-library(pracma)
 muc <- pars[1]
 tau <- pars[2]
 mu <- pars[3]

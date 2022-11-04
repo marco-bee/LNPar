@@ -1,4 +1,4 @@
-#' Random number simulation for a mixture of a lognormal and a Pareto r.v.   
+#' Random number simulation for a mixture of a lognormal and a Pareto r.v.
 #'
 #' This function simulates random numbers for a mixture of a lognormal and a Pareto r.v.
 #' @param n positive integer: number of simulated random numbers.
@@ -15,7 +15,6 @@
 
 rLnormParMix = function(n,pi,mu,sigma,xmin,alpha)
 {
-  source('rpareto.r')
   p <- rbinom(n,1,pi)
   y1 <- rlnorm(sum(p),mu,sigma)
   y2 <- rpareto(n-sum(p), xmin, alpha)

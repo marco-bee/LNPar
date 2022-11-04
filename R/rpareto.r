@@ -1,4 +1,4 @@
-#' Random number simulation for a Pareto r.v.   
+#' Random number generation for a Pareto r.v.
 #'
 #' This function simulates random numbers for a Pareto r.v.
 #' @param n positive integer: number of simulated random numbers.

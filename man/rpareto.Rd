@@ -2,7 +2,7 @@
 % Please edit documentation in R/rpareto.r
 \name{rpareto}
 \alias{rpareto}
-\title{Random number simulation for a Pareto r.v.}
+\title{Random number generation for a Pareto r.v.}
 \usage{
 rpareto(n, xmin, alpha)
 }

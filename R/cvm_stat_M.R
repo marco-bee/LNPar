@@ -20,8 +20,6 @@
 
 cvm_stat_M <- function(vec1,vec2,power)
 {
-# compute CvM distance
-
 n1 = length(vec1)
 n2 = length(vec2)
 n = n1+n2
