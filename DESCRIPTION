@@ -17,4 +17,5 @@ Imports:
          evir,
          MASS,
          pracma,
-         Rdpack
+         Rdpack,
+         ks
