@@ -20,7 +20,8 @@
 #'
 #' resFit <- LPfit(y,90,500)
 #' parsStd <- resFit$bootstd
-#' @references  Bee, M. (2020), “On discriminating between lognormal and Pareto tail: a mixture-based approach”, DEM working paper 2020/9. https://www.economia.unitn.it/alfresco/download/workspace/SpacesStore/06b9cd83-9754-4b9e-8e7c-7954d43395b7/DEM2020_09.pdf
+#' @references  Bee, M. (2020), “On discriminating between lognormal and Pareto tail: a mixture-based approach”,
+#' Advances in Data Analysis and Classification, https://doi.org/10.1007/s11634-022-00497-4
 
 MLEBoot = function(y,nboot,nthresh,p0,alpha0,mu0,Psi0)
 {
