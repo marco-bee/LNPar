@@ -1,10 +1,12 @@
 #' Estimating a dynamic mixture by AMLE and MLE
 #'
-#' This function fits a dynamic mixture by Approximate Maximum Likelihood and by standard maximum likelihood.
+#' This function fits a dynamic mixture by Approximate Maximum Likelihood
+#' and by standard maximum likelihood.
 #' Currently only implemented for the lognormal - generalized Pareto case.
 #' @param yObs numerical vector: observed random sample from the mixture.
 #' @param epsilon non-negative scalar: scale parameter of the Markov kernel.
-#' @param k non-negative integer: number of samples generated in the AMLE approach, such that k*epsilon = ABC sample size.
+#' @param k non-negative integer: number of samples generated in the AMLE
+#' approach, such that k*epsilon = ABC sample size.
 #' @param bootreps non-negative integer: number of bootstrap replications.
 #' @return A list with the following elements:
 #'
@@ -12,9 +14,11 @@
 #' maxima of the marginal kernel densities, maximum of the multivariate kernel densities,
 #' maximum of the product of the marginal kernel densities.
 #'
-#' MLEpars (7 x 1) vector: maximum likelihood estimates and maximized log-likelihood.
+#' MLEpars (7 x 1) vector: maximum likelihood estimates and
+#' maximized log-likelihood.
 #'
-#' MLE (bootreps x 6) matrix: maximum likelihood estimates obtained in each bootstrap replication.
+#' MLE (bootreps x 6) matrix: maximum likelihood estimates obtained in
+#' each bootstrap replication.
 #'
 #' ABCsam ((k x epsilon) x 6) matrix: ABC sample.
 #' @details Starting values for mu and sigma are the lognormal MLEs computed
@@ -23,9 +27,10 @@
 #' For the location and scale parameter of the Cauchy, we respectively use the first quartile and log(sd(x)/2).
 #' In AMLE, for the lognormal and GPD parameters, the support of the uniform
 #' prior is set equal to the 99% confidence interval of the bootstrap
-#' distribution after discarding the outliers;
+#' distribution after discarding the outliers.
 #' For the Cauchy parameters, the support is given by the range of the
 #' bootstrap distribution after discarding the outliers.
+#' Be aware that computing times are large when k and/or bootreps are large.
 #' @keywords dynamic mixture; approximate maximum likelihood.
 #' @export
 #' @examples

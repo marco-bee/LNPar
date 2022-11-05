@@ -11,7 +11,8 @@ DynMixfit(yObs, epsilon, k, bootreps)
 
 \item{epsilon}{non-negative scalar: scale parameter of the Markov kernel.}
 
-\item{k}{non-negative integer: number of samples generated in the AMLE approach, such that k*epsilon = ABC sample size.}
+\item{k}{non-negative integer: number of samples generated in the AMLE
+approach, such that k*epsilon = ABC sample size.}
 
 \item{bootreps}{non-negative integer: number of bootstrap replications.}
 }
@@ -22,14 +23,17 @@ AMLEpars (6 x 1) vector: approximate maximum likelihood estimates computed via s
 maxima of the marginal kernel densities, maximum of the multivariate kernel densities,
 maximum of the product of the marginal kernel densities.
 
-MLEpars (7 x 1) vector: maximum likelihood estimates and maximized log-likelihood.
+MLEpars (7 x 1) vector: maximum likelihood estimates and
+maximized log-likelihood.
 
-MLE (bootreps x 6) matrix: maximum likelihood estimates obtained in each bootstrap replication.
+MLE (bootreps x 6) matrix: maximum likelihood estimates obtained in
+each bootstrap replication.
 
 ABCsam ((k x epsilon) x 6) matrix: ABC sample.
 }
 \description{
-This function fits a dynamic mixture by Approximate Maximum Likelihood and by standard maximum likelihood.
+This function fits a dynamic mixture by Approximate Maximum Likelihood
+and by standard maximum likelihood.
 Currently only implemented for the lognormal - generalized Pareto case.
 }
 \details{
@@ -39,9 +43,10 @@ tau are the GPD MLEs obtained with the observations above the median.
 For the location and scale parameter of the Cauchy, we respectively use the first quartile and log(sd(x)/2).
 In AMLE, for the lognormal and GPD parameters, the support of the uniform
 prior is set equal to the 99\% confidence interval of the bootstrap
-distribution after discarding the outliers;
+distribution after discarding the outliers.
 For the Cauchy parameters, the support is given by the range of the
 bootstrap distribution after discarding the outliers.
+Be aware that computing times are large when k and/or bootreps are large.
 }
 \examples{
 mixFit <- DynMixfit(TN2016,0.005,5000,100)
