@@ -26,7 +26,8 @@ This function approximates the mode of a multivariate empirical distribution by 
 The bandwidth is estimated via smoothed cross-validation
 }
 \examples{
-res <- AMLEmode(ABCsam)
+mixFit <- DynMixfit(TN2016,0.005,5000,100,AMLE=TRUE)
+res <- AMLEmode(mixFit$ABCsam)
 }
 \keyword{approximate}
 \keyword{dynamic}

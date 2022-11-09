@@ -13,7 +13,8 @@
 #' @keywords dynamic mixture; approximate maximum likelihood.
 #' @export
 #' @examples
-#' res <- AMLEmode(ABCsam)
+#' mixFit <- DynMixfit(TN2016,0.005,5000,100,AMLE=TRUE)
+#' res <- AMLEmode(mixFit$ABCsam)
 
 AMLEmode <- function(ABCsam)
 {
