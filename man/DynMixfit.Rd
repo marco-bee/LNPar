@@ -55,6 +55,11 @@ Be aware that computing times are large when k and/or bootreps are large.
 \examples{
 mixFit <- DynMixfit(TN2016,0.005,5000,100,AMLE=TRUE)
 }
+\references{
+{
+\insertRef{bee22b}{LNPar}
+}
+}
 \seealso{
 \link{AMLEmode}
 }

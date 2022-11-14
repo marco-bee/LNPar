@@ -39,6 +39,12 @@
 #' @export
 #' @examples
 #' mixFit <- DynMixfit(TN2016,0.005,5000,100,AMLE=TRUE)
+#' @references{
+#'   \insertRef{bee22b}{LNPar}
+#' }
+#'
+#'
+#' @importFrom Rdpack reprompt
 
 DynMixfit <- function(yObs,epsilon,k,bootreps,AMLE=TRUE)
 {

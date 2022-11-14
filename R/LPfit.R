@@ -30,6 +30,12 @@
 #' @export
 #' @examples
 #' mixFit <- LPfit(TN2016,90,0)
+#' @references{
+#'   \insertRef{bee22}{LNPar}
+#' }
+#'
+#'
+#' @importFrom Rdpack reprompt
 
 LPfit <- function(y,minRank,nbootMLE)
 {

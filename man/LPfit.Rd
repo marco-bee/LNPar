@@ -44,6 +44,11 @@ where n is the sample size and ys is the sample sorted in in ascending order.
 \examples{
 mixFit <- LPfit(TN2016,90,0)
 }
+\references{
+{
+\insertRef{bee22}{LNPar}
+}
+}
 \keyword{likelihood.}
 \keyword{mixture;}
 \keyword{profile}
