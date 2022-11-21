@@ -4,12 +4,15 @@
 \alias{dynloglik}
 \title{Log-likelihood of a Lognormal-GPD dynamic mixture}
 \usage{
-dynloglik(x, y)
+dynloglik(x, y, intTol)
 }
 \arguments{
 \item{x}{(6 by 1) numerical vector: values of CA1, CA2, meanlog, sdlog, xi, beta.}
 
 \item{y}{vector: points where the function is evaluated.}
+
+\item{intTol}{non-negative scalar: threshold for stopping the computation of the integral in the normalization
+constant: if the integral on \link{n-1,n} is smaller than intTol, the approximation procedure stops.}
 }
 \value{
 log-likelihood of the lognormal-GPD mixture evaluated at y.
@@ -18,7 +21,7 @@ log-likelihood of the lognormal-GPD mixture evaluated at y.
 This function evaluates the log-likelihood of a Lognormal-GPD dynamic mixture.
 }
 \examples{
-fit <- dynloglik(x,y)
+fit <- dynloglik(x,y,intTol)
 }
 \keyword{dynamic}
 \keyword{mixture.}

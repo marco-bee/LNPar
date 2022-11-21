@@ -10,6 +10,8 @@
 #' @param bootreps non-negative integer: number of bootstrap replications.
 #' @param AMLE logical: if TRUE (the default), both AMLEs and MLEs are computed; if FALSE,
 #' only MLEs are computed
+#' @param intTol non-negative scalar: threshold for stopping the computation of the integral in the normalization
+#' constant: if the integral on [n-1,n] is smaller than intTol, the approximation procedure stops.
 #' @return If AMLE = FALSE, a (7 x 1) vector containing MLEs and maximized log-likelihood is returned. If AMLE = TRUE,
 #' a list with the following elements is returned:
 #'
@@ -38,7 +40,7 @@
 #' @seealso [AMLEmode]
 #' @export
 #' @examples
-#' mixFit <- DynMixfit(TN2016,0.005,5000,100,AMLE=TRUE)
+#' mixFit <- DynMixfit(TN2016,0.005,5000,100,AMLE=TRUE,intTol=1e-4)
 #' @references{
 #'   \insertRef{bee22b}{LNPar}
 #' }
@@ -46,7 +48,7 @@
 #'
 #' @importFrom Rdpack reprompt
 
-DynMixfit <- function(yObs,epsilon,k,bootreps,AMLE=TRUE)
+DynMixfit <- function(yObs,epsilon,k,bootreps,AMLE=TRUE,intTol=1e-4)
 {
   n = length(yObs)
 
@@ -64,7 +66,7 @@ DynMixfit <- function(yObs,epsilon,k,bootreps,AMLE=TRUE)
     muc0 = quantile(yObs,.5)
     tau0 = log(sd(yObs)/2)
     x0Lik = as.numeric(c(muc0,tau0,mu0,sigma0,xi0,beta0))
-    res <- optim(x0Lik,dynloglik, gr=NULL,yObs,method='L-BFGS-B',lower=c(-Inf,.01,-Inf,.05,10^-10,.1),upper=c(Inf,Inf,Inf,10,Inf,10),control=list(fnscale=-1))
+    res <- optim(x0Lik,dynloglik, gr=NULL,yObs,intTol,method='L-BFGS-B',lower=c(-Inf,.01,-Inf,.05,10^-10,.1),upper=c(Inf,Inf,Inf,10,Inf,50),control=list(fnscale=-1))
     estMLE <- c(res$par,res$value) # muc, tau, mu, sigma, xi, beta
     out <- estMLE
     return(out)

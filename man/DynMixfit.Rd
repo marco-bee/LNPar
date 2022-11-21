@@ -4,7 +4,7 @@
 \alias{DynMixfit}
 \title{Estimating a dynamic mixture by AMLE and MLE}
 \usage{
-DynMixfit(yObs, epsilon, k, bootreps, AMLE = TRUE)
+DynMixfit(yObs, epsilon, k, bootreps, AMLE = TRUE, intTol = 1e-04)
 }
 \arguments{
 \item{yObs}{numerical vector: observed random sample from the mixture.}
@@ -18,6 +18,9 @@ approach, such that k*epsilon = ABC sample size.}
 
 \item{AMLE}{logical: if TRUE (the default), both AMLEs and MLEs are computed; if FALSE,
 only MLEs are computed}
+
+\item{intTol}{non-negative scalar: threshold for stopping the computation of the integral in the normalization
+constant: if the integral on \link{n-1,n} is smaller than intTol, the approximation procedure stops.}
 }
 \value{
 If AMLE = FALSE, a (7 x 1) vector containing MLEs and maximized log-likelihood is returned. If AMLE = TRUE,
@@ -53,7 +56,7 @@ bootstrap distribution after discarding the outliers.
 Be aware that computing times are large when k and/or bootreps are large.
 }
 \examples{
-mixFit <- DynMixfit(TN2016,0.005,5000,100,AMLE=TRUE)
+mixFit <- DynMixfit(TN2016,0.005,5000,100,AMLE=TRUE,intTol=1e-4)
 }
 \references{
 {

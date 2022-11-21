@@ -3,13 +3,15 @@
 #' This function evaluates the log-likelihood of a Lognormal-GPD dynamic mixture.
 #' @param x (6 by 1) numerical vector: values of CA1, CA2, meanlog, sdlog, xi, beta.
 #' @param y vector: points where the function is evaluated.
+#' @param intTol non-negative scalar: threshold for stopping the computation of the integral in the normalization
+#' constant: if the integral on [n-1,n] is smaller than intTol, the approximation procedure stops.
 #' @return log-likelihood of the lognormal-GPD mixture evaluated at y.
 #' @keywords dynamic mixture.
 #' @export
 #' @examples
-#' fit <- dynloglik(x,y)
+#' fit <- dynloglik(x,y,intTol)
 
-dynloglik <- function(x,y)
+dynloglik <- function(x,y,intTol)
 {
 muc <- x[1]
 tau <- x[2]
@@ -23,7 +25,7 @@ temp <- (1-p) * dlnorm(y,mu,sigma) + p * evir::dgpd(y, xi, mu=0, beta)
 I <- NULL
 I1 <- 10
 i <- 1
-while (abs(I1) > .0001 & i <= 2001)
+while (abs(I1) > intTol & i <= 2001)
 {
   temp1 <- pracma::quadinf(f,i-1,i)
   I1 <- temp1$Q #integral(f,i-1,i)
