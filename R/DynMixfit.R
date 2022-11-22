@@ -82,7 +82,7 @@ DynMixfit <- function(yObs,epsilon,k,bootreps,AMLE=TRUE,intTol=1e-4)
     muc0 = quantile(yObs,.5)
     tau0 = log(sd(yObs)/2)
     x0Lik = as.numeric(c(muc0,tau0,mu0,sigma0,xi0,beta0))
-    res <- optim(x0Lik,dynloglik, gr=NULL,yObs,method='L-BFGS-B',lower=c(-Inf,.01,-Inf,.05,10^-10,.1),upper=c(Inf,Inf,Inf,10,Inf,10),control=list(fnscale=-1))
+    res <- optim(x0Lik,dynloglik, gr=NULL,yObs,intTol,method='L-BFGS-B',lower=c(-Inf,.01,-Inf,.05,10^-10,.1),upper=c(Inf,Inf,Inf,10,Inf,10),control=list(fnscale=-1))
     estMLE <- c(res$par,res$value) # muc, tau, mu, sigma, xi, beta
     Yboot = Bootsamples(yObs,bootreps)
     MLE = jitter(Yboot$MLE)
