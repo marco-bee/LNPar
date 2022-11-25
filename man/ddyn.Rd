@@ -4,12 +4,15 @@
 \alias{ddyn}
 \title{Density of a Lognormal-GPD dynamic mixture}
 \usage{
-ddyn(x, pars)
+ddyn(x, pars, intTol)
 }
 \arguments{
 \item{x}{non-negative vector: points where the function is evaluated.}
 
 \item{pars}{(6 by 1) numerical vector: values of CA1, CA2, meanlog, sdlog, xi, beta.}
+
+\item{intTol}{non-negative scalar: threshold for stopping the computation of the integral in the normalization
+constant: if the integral on \link{n-1,n} is smaller than intTol, the approximation procedure stops.}
 }
 \value{
 density of the lognormal-GPD mixture evaluated at x.
@@ -18,7 +21,7 @@ density of the lognormal-GPD mixture evaluated at x.
 This function evaluates the density of a Lognormal-GPD dynamic mixture.
 }
 \examples{
-dLNPar <- ddyn(x,pars)
+dLNPar <- ddyn(x,pars,1e-04)
 }
 \keyword{dynamic}
 \keyword{mixture.}
