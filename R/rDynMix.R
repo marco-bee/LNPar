@@ -10,7 +10,7 @@
 #' @keywords dynamic mixture; simulation.
 #' @export
 #' @examples
-#' ysim <- rDynMix(100,c(0.25,3,0,0.5,1,2))
+#' ysim <- rDynMix(100,c(1,2,0,0.5,0.25,3))
 #' @references{
 #'   \insertRef{fri02}{LNPar}
 #' }
@@ -20,12 +20,12 @@
 
 rDynMix <- function(nreps,x)
 {
-xi = x[1]
-beta = x[2]
+CA1 = x[1]
+CA2 = x[2]
 meanlog = x[3]
 sdlog = x[4]
-CA1 = x[5]
-CA2 = x[6]
+xi = x[5]
+beta = x[6]
 ysim <- rep(0,nreps)
 i <- 1
 while (i<=nreps)

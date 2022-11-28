@@ -136,7 +136,7 @@ DynMixfit <- function(yObs,epsilon,k,bootreps,AMLE=TRUE,intTol=1e-4)
 
     for (j in 1:k)
     {
-      dataSim <- rDynMix(n,c(xiV[j],betaV[j],muV[j],sigmaV[j],CA1V[j],CA2V[j]))
+      dataSim <- rDynMix(n,c(CA1V[j],CA2V[j],muV[j],sigmaV[j],xiV[j],betaV[j]))
       distCVM[j] = cvm_stat_M(yObs,dataSim,p=2)
     }
 
@@ -145,7 +145,7 @@ DynMixfit <- function(yObs,epsilon,k,bootreps,AMLE=TRUE,intTol=1e-4)
     distCVM_jit <- jitter(distCVM)
     thresh <- quantile(distCVM_jit,epsilon)[1]
     indici <- which(distCVM_jit<thresh)
-    matrice <- cbind(xiV,betaV,muV,sigmaV,CA1V,CA2V)
+    matrice <- cbind(CA1V,CA2V,muV,sigmaV,xiV,betaV)
     ABCsam <- matrice[indici,]
     estAMLE = AMLEmode(ABCsam)
     out <- list(AMLEpars=estAMLE,MLEpars=estMLE,ABCsam=ABCsam,MLE=MLE)
