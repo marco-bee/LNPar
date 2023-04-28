@@ -23,7 +23,7 @@ This function simulates a dynamic lognormal-GPD mixture using
 the algorithm of Frigessi et al. (2002, p. 221).
 }
 \examples{
-ysim <- rDynMix(100,c(0.25,3,0,0.5,1,2))
+ysim <- rDynMix(100,c(1,2,0,0.5,0.25,3))
 }
 \references{
 {

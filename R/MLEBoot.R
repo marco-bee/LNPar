@@ -25,7 +25,7 @@
 
 MLEBoot = function(y,nboot,nthresh,p0,alpha0,mu0,Psi0)
 {
-  pb <- tkProgressBar("test progress bar", "Some information in %", 0, nboot, 50)
+  pb <- tcltk::tkProgressBar("test progress bar", "Some information in %", 0, nboot, 50)
   samSiz <- length(y)
   indice = rep(0,nboot)
   xminhat = rep(0,nboot)
@@ -50,7 +50,7 @@ MLEBoot = function(y,nboot,nthresh,p0,alpha0,mu0,Psi0)
     resBest[j,] <- c(temp$prior,temp$alpha,temp$mu,temp$sigma,temp$loglik)
     write(c(resBest[j,],indice[j],xminhat[j]),paste('pars_boot.txt',sep=''),ncolumns = 7, append=T)
     info <- sprintf("%d%% done", round(j/(nboot/100)))
-    setTkProgressBar(pb, j, sprintf("test (%s)", info), info)
+    tcltk::setTkProgressBar(pb, j, sprintf("test (%s)", info), info)
   }
   close(pb)
   varcov = cov(resBest[,1:4])
