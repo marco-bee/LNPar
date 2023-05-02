@@ -49,11 +49,13 @@ LPfit <- function(y,minRank,nbootMLE)
   alpha0 <- length(ys[ys>a0]) / (sum(log(ys[ys>a0]/a0)))
   mu0 <- mean(log(ys))+1
   Psi0 <- var(log(ys))
-  th <- ys
+#  th <- ys
+  th <- ys[minRank:(n-1)]
   nthresh <- length(th)
   resMat <- matrix(0,nthresh,5)
   paretoObs <- cbind(th,matrix(0,nthresh,2))
-  for (i in minRank:(n-1))
+  # for (i in minRank:(n-1))
+  for (i in 1:nthresh)
   {
     a <- th[i]
     Res <- par_logn_mix_known(ys, p0, a, alpha0, mean(ys), sd(ys))
@@ -61,6 +63,7 @@ LPfit <- function(y,minRank,nbootMLE)
   }
   indice <- which.max(resMat[,5])
   xminhat <- th[indice]
+  # xminhat <- ys[indice+minRank]
   resBest <- par_logn_mix_known(ys, p0, xminhat, alpha0, mean(ys), sd(ys))
   npareto <- n * (1-resBest$prior)
   prior <- resBest$prior

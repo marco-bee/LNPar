@@ -32,7 +32,12 @@ a pure lognormal distribution versus the alternative of a lognormal-Pareto
 mixture.
 }
 \examples{
-resTest <- LPtest(100,0,1,0.67,100,90)
+mixFit <- LPfit(TN2016,90,0)
+ell1 <- mixFit$loglik
+estNull <- c(mean(log(TN2016)),sd(log(TN2016)))
+ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))
+obsTest <- 2*(ell1-ellNull)
+resTest <- LPtest(length(TN2016),mean(log(TN2016)),sd(log(TN2016)),obsTest,100,90)
 }
 \keyword{likelihood;}
 \keyword{log-likelihood}
