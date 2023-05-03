@@ -29,7 +29,7 @@
 #' @keywords mixture; profile likelihood.
 #' @export
 #' @examples
-#' mixFit <- LPfitPar(TN2016,90,0)
+#' mixFit <- LPfit(TN2016,90,0)
 #' @references{
 #'   \insertRef{bee22}{LNPar}
 #' }
