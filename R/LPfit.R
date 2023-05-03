@@ -29,7 +29,7 @@
 #' @keywords mixture; profile likelihood.
 #' @export
 #' @examples
-#' mixFit <- LPfit(TN2016,90,0)
+#' mixFit <- LPfitPar(TN2016,90,0)
 #' @references{
 #'   \insertRef{bee22}{LNPar}
 #' }
@@ -80,8 +80,19 @@ LPfit <- function(y,minRank,nbootMLE)
   }
   else
   {
-    resBoot <- MLEBoot(ys,nbootMLE,nthresh,p0,alpha0,mean(ys),var(ys))
-    results <- list(xmin=xminhat,prior=prior,postProb=postProb,alpha=alpha,mu=as.double(mu),sigma=as.vector(sigma),loglik=loglik,nit=nit,npareto=npareto,bootstd=resBoot$std)
+    library(parallel)
+    nreps.list <- sapply(1:nbootMLE, list)
+    n.cores <- detectCores()
+    clust <- makeCluster(n.cores)
+    BootMat = matrix(0,nbootMLE,5)
+    temp <- parLapply(clust,nreps.list, MLEBoot,ys,minRank,p0,alpha0,mean(ys),var(ys))
+    for (i in 1:nbootMLE)
+    {
+      BootMat[i,] = as.vector(unlist(temp[[i]]))
+    }
+    varcov = cov(BootMat)
+    stddev = sqrt(diag(varcov))
+    results <- list(xmin=xminhat,prior=prior,postProb=postProb,alpha=alpha,mu=as.double(mu),sigma=as.vector(sigma),loglik=loglik,nit=nit,npareto=npareto,bootEst=BootMat[,1:4],bootStd=stddev)
     return(results)
   }
 }

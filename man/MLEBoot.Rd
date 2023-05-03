@@ -4,20 +4,20 @@
 \alias{MLEBoot}
 \title{Bootstrap standard errors for the estimators of a lognormal-Pareto mixture}
 \usage{
-MLEBoot(y, nboot, nthresh, p0, alpha0, mu0, Psi0)
+MLEBoot(x, y, minRank, p0, alpha0, mu0, Psi0)
 }
 \arguments{
 \item{y}{numerical vector: random sample from the mixture.}
 
-\item{nboot}{integer: number of bootstrap replications.}
-
-\item{nthresh}{integer: minimum possible rank of the threshold.}
+\item{minRank}{integer: minimum possible rank of the threshold.}
 
 \item{p0}{(0<p0<1): starting value of the mixing weight.}
 
 \item{alpha0}{non-negative scalar: starting value of the Pareto shape parameter.}
 
 \item{mu0}{scalar: starting value of the expectation of the lognormal distribution on the log scale.}
+
+\item{nboot}{integer: number of bootstrap replications.}
 
 \item{sigma0}{non-negative scalar: starting value of the standard deviation of the lognormal distribution on the log scale.}
 }
@@ -28,13 +28,13 @@ Bootstrap standard errors of the estimators.
 This function computes non-parametric bootstrap standard errors for the estimators of a lognormal-Pareto mixture distribution.
 }
 \details{
-At each bootstrap replication, the mixture is estimated with thresholds equal to ys(n-nthresh), ys(n-nthresh+1),..., ys(n),
+At each bootstrap replication, the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
 where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfit (see the examples below).
 }
 \examples{
-resBoot <- MLEBoot(y,100,20,.5,1.5,0,1)
+resBoot <- MLEBootPar(y,100,20,.5,1.5,0,1)
 
-# Typical use from LPfit
+# Typical use via LPfit
 
 resFit <- LPfit(y,90,500)
 parsStd <- resFit$bootstd

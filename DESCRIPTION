@@ -19,5 +19,4 @@ Imports:
          MASS,
          pracma,
          Rdpack,
-	     tcltk,
 	     parallel
