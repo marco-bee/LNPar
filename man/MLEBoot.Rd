@@ -17,15 +17,13 @@ MLEBoot(x, y, minRank, p0, alpha0, mu0, Psi0)
 
 \item{mu0}{scalar: starting value of the expectation of the lognormal distribution on the log scale.}
 
-\item{nboot}{integer: number of bootstrap replications.}
-
 \item{sigma0}{non-negative scalar: starting value of the standard deviation of the lognormal distribution on the log scale.}
 }
 \value{
 Bootstrap standard errors of the estimators.
 }
 \description{
-This function computes non-parametric bootstrap standard errors for the estimators of a lognormal-Pareto mixture distribution.
+This function computes non-parametric bootstrap standard errors for the estimators of a lognormal-Pareto mixture distribution. The implementation is based on parallel computing.
 }
 \details{
 At each bootstrap replication, the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),

@@ -24,10 +24,7 @@
 #' obsTest <- 2*(ell1-ellNull)
 #' resTest <- LPtest(length(TN2016),mean(log(TN2016)),sd(log(TN2016)),obsTest,100,90)
 
-LPtest <- function(n,muNull,sigmaNull,obsTest,nboot,minRank)
-{
-lr <- rep(0,nboot)
-for (i in 1:nboot)
+LPtest <- function(x,n,muNull,sigmaNull,obsTest,minRank)
 {
   ysim <- sort(rlnorm(n,muNull,sigmaNull))
   th <- ysim[minRank:(n-1)]
@@ -38,13 +35,15 @@ for (i in 1:nboot)
   alpha0 <- 3
   mu0 <- mean(log(ysim))+1
   sigma0 <- sd(log(ysim))
-  resMat <- matrix(0,n-minRank,5)
+  th <- ysim[minRank:(n-1)]
+  nthresh <- length(th)
+  resMat <- matrix(0,nthresh,5)
 
-  for (s in minRank:(n-1))
+  for (k in 1:nthresh)
   {
-    a <- ysim[s]
+    a <- th[k]
     Res <- par_logn_mix_known(ysim, p0, a, alpha0, mu0, sigma0)
-    resMat[s-minRank+1,] <- c(Res$prior,Res$alpha,Res$mu,Res$sigma,Res$loglik)
+    resMat[k,] <- c(Res$prior,Res$alpha,Res$mu,Res$sigma,Res$loglik)
     temp <- Res$post[,1]
     post1 <- temp[temp<1]
   }
@@ -52,9 +51,7 @@ for (i in 1:nboot)
   xminhat <- th[indice]
   temp1 <- par_logn_mix_known(ysim, p0, xminhat, alpha0, mu0, sigma0)
   ell1 <- temp1$loglik
-  lr[i] <- pmax(0,2*(ell1-ell0)) # sometimes slightly negative, as ell1 is computed numerically
-}
-obsp <- length(lr[lr>obsTest])/nboot
-results <- list("lr" = lr, "pval" = obsp)
-results
+  lr <- pmax(0,2*(ell1-ell0)) # sometimes slightly negative, as ell1 is computed numerically
+  results <- list(res=lr)
+  results
 }

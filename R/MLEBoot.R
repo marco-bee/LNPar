@@ -1,8 +1,7 @@
 #' Bootstrap standard errors for the estimators of a lognormal-Pareto mixture
 #'
-#' This function computes non-parametric bootstrap standard errors for the estimators of a lognormal-Pareto mixture distribution.
+#' This function computes non-parametric bootstrap standard errors for the estimators of a lognormal-Pareto mixture distribution. The implementation is based on parallel computing.
 #' @param y numerical vector: random sample from the mixture.
-#' @param nboot integer: number of bootstrap replications.
 #' @param minRank integer: minimum possible rank of the threshold.
 #' @param p0 (0<p0<1): starting value of the mixing weight.
 #' @param alpha0 non-negative scalar: starting value of the Pareto shape parameter.
@@ -26,7 +25,6 @@
 MLEBoot = function(x,y,minRank,p0,alpha0,mu0,Psi0)
 {
   samSiz <- length(y)
-#  library(parallel)
   indici = sample(samSiz, samSiz, replace = TRUE)
   yboot = sort(y[indici])
   th <- yboot[minRank:(samSiz-1)]

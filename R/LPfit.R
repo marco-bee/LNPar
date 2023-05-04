@@ -80,12 +80,13 @@ LPfit <- function(y,minRank,nbootMLE)
   }
   else
   {
-    library(parallel)
+#    library(parallel)
     nreps.list <- sapply(1:nbootMLE, list)
-    n.cores <- detectCores()
-    clust <- makeCluster(n.cores)
+    n.cores <- parallel::detectCores()
+    clust <- parallel::makeCluster(n.cores)
     BootMat = matrix(0,nbootMLE,5)
-    temp <- parLapply(clust,nreps.list, MLEBoot,ys,minRank,p0,alpha0,mean(ys),var(ys))
+    temp <- parallel::parLapply(clust,nreps.list, MLEBoot,ys,minRank,p0,alpha0,mean(ys),var(ys))
+    parallel::stopCluster(cl=clust)
     for (i in 1:nbootMLE)
     {
       BootMat[i,] = as.vector(unlist(temp[[i]]))
