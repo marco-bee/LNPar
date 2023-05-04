@@ -20,22 +20,20 @@ MLEBoot(x, y, minRank, p0, alpha0, mu0, Psi0)
 \item{sigma0}{non-negative scalar: starting value of the standard deviation of the lognormal distribution on the log scale.}
 }
 \value{
-Bootstrap standard errors of the estimators.
+A bootstrap sample.
 }
 \description{
-This function computes non-parametric bootstrap standard errors for the estimators of a lognormal-Pareto mixture distribution. The implementation is based on parallel computing.
+This function draws a bootstrap sample and uses it to estimate the parameters of a lognormal-Pareto mixture distribution. Since this is typically called by LPfit, see the help of LPfit.
 }
 \details{
 At each bootstrap replication, the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
 where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfit (see the examples below).
 }
 \examples{
-resBoot <- MLEBootPar(y,100,20,.5,1.5,0,1)
-
 # Typical use via LPfit
 
 resFit <- LPfit(y,90,500)
-parsStd <- resFit$bootstd
+parsStd <- resFit$bootStd
 }
 \references{
 Bee, M. (2022), “On discriminating between lognormal and Pareto tail: a mixture-based approach”,

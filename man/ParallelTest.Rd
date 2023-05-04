@@ -18,7 +18,7 @@ ParallelTest(nboot, y, obsTest, minRank)
 \value{
 A list with the following elements:
 
-lr: nboot simulated values of the llr test under the null hypothesis.
+LR: nboot simulated values of the llr test under the null hypothesis.
 
 pval: p-value of the test.
 }
@@ -34,7 +34,7 @@ ell1 <- mixFit$loglik
 estNull <- c(mean(log(TN2016)),sd(log(TN2016)))
 ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))
 obsTest <- 2*(ell1-ellNull)
-nboot = 2
+nboot = 100
 TestRes = ParallelTest(nboot,TN2016,obsTest,minRank)
 }
 \keyword{likelihood;}
