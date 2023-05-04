@@ -1,12 +1,12 @@
 #' Estimate the parameters of a Pareto and a lognormal density, assuming a known threshold
 #'
 #' This function estimates the parameters of a Pareto and a lognormal density, assuming a known threshold.
-#' @param y numerical vector: random sample from the mixture.
+#' @param y non-negative numerical vector: random sample from the mixture.
 #' @param prior1 scalar (0<prior1<1): starting value of the prior probability.
-#' @param th scalar: threshold.
+#' @param th positive scalar: threshold.
 #' @param alpha non-negative scalar: starting value of the Pareto shape parameter.
 #' @param mu scalar: starting value of the lognormal parameter mu.
-#' @param sigma scalar: starting value of the lognormal parameter sigma.
+#' @param sigma positive scalar: starting value of the lognormal parameter sigma.
 #' @return A list with the following elements:
 #'
 #' xmin: estimated threshold.
@@ -27,8 +27,7 @@
 #' @keywords mixture, EM algorithm.
 #' @export
 #' @examples
-#' y <- read.delim('impreseTN2016.csv',header=F,sep=',')
-#' mixFit <- par_logn_mix_known(y, .5, 4700, 3, 7, 1.2)
+#' mixFit <- par_logn_mix_known(TN2016, .5, 4700, 3, 7, 1.2)
 
 par_logn_mix_known <- function(y, prior1, th, alpha, mu, sigma)
 {

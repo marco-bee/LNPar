@@ -4,10 +4,10 @@
 #' @param n positive integer: number of simulated random numbers.
 #' @param pi scalar, 0 < pi < 1: mixing weight.
 #' @param mu scalar: expected value of the lognormal distribution on the log scale.
-#' @param sigma scalar: standard deviation of the lognormal distribution on the log scale.
-#' @param xmin scalar: threshold.
+#' @param sigma positive scalar: standard deviation of the lognormal distribution on the log scale.
+#' @param xmin positive scalar: threshold.
 #' @param alpha non-negative scalar: Pareto shape parameter.
-#' @return n iid random unmbers from the lognormal-Pareto distribution.
+#' @return n iid random numbers from the lognormal-Pareto distribution.
 #' @keywords mixture.
 #' @export
 #' @examples

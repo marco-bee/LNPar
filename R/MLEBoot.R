@@ -1,19 +1,19 @@
 #' Bootstrap standard errors for the estimators of a lognormal-Pareto mixture
 #'
 #' This function draws a bootstrap sample and uses it to estimate the parameters of a lognormal-Pareto mixture distribution. Since this is typically called by LPfit, see the help of LPfit.
-#' @param y numerical vector: random sample from the mixture.
-#' @param minRank integer: minimum possible rank of the threshold.
+#' @param y numerical vector: observed sample.
+#' @param minRank positive integer: minimum possible rank of the threshold.
 #' @param p0 (0<p0<1): starting value of the mixing weight.
 #' @param alpha0 non-negative scalar: starting value of the Pareto shape parameter.
-#' @param mu0 scalar: starting value of the expectation of the lognormal distribution on the log scale.
-#' @param sigma0 non-negative scalar: starting value of the standard deviation of the lognormal distribution on the log scale.
-#' @return A bootstrap sample.
+#' @param mu0 scalar: starting value of the log-expectation of the lognormal distribution on the log scale.
+#' @param sigma0 non-negative scalar: starting value of the log-standard deviation of the lognormal distribution on the log scale.
+#' @return Estimated parameters obtained from a bootstrap sample.
 #' @keywords mixture; profile likelihood; EM algorithm.
 #' @details At each bootstrap replication, the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
-#' where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfit (see the examples below).
+#' where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfit (see the example below).
 #' @export
 #' @examples
-#' # Typical use via LPfit
+#' # Typical usage via LPfit
 #'
 #' resFit <- LPfit(y,90,500)
 #' parsStd <- resFit$bootStd

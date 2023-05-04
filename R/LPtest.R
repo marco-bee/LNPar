@@ -2,7 +2,8 @@
 #'
 #' This function draws a bootstrap sample from the null (lognormal) distribution and computes the test for the null hypothesis of
 #' a pure lognormal distribution versus the alternative of a lognormal-Pareto
-#' mixture. To be only used from ParallelTest.
+#' mixture. To be only called from ParallelTest.
+#' @param x socket cluster
 #' @param n sample size
 #' @param muNull lognormal expected value under the null hypothesis.
 #' @param sigmaNull lognormal standard deviation under the null hypothesis.
@@ -22,7 +23,10 @@
 #' obsTest <- 2*(ell1-ellNull)
 #' nboot = 100
 #' ParallelTest(nboot,TN2016,obsTest,minRank)
-
+#' @references{
+#'   \insertRef{bee22}{LNPar}
+#' }
+#'
 
 LPtest <- function(x,n,muNull,sigmaNull,obsTest,minRank)
 {

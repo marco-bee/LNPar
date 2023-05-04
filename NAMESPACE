@@ -2,7 +2,6 @@
 
 export(LPfit)
 export(LPtest)
-export(LPtestOld)
 export(MLEBoot)
 export(ParallelTest)
 export(dLnormParMix)

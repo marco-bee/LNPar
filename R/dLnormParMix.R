@@ -1,12 +1,12 @@
 #' density of a mixture of a lognormal and a Pareto r.v.
 #'
 #' This function computes the density of a mixture of a lognormal and a Pareto r.v.
-#' @param x numerical vector: values where the density has to be evaluated.
+#' @param x non-negative numerical vector: values where the density has to be evaluated.
 #' @param p scalar, 0 < p < 1: mixing weight.
 #' @param mu scalar: expected value of the lognormal distribution on the log scale.
-#' @param sigma scalar: standard deviation of the lognormal distribution on the log scale.
-#' @param xmin scalar: threshold.
-#' @param alpha non-negative scalar: Pareto shape parameter.
+#' @param sigma positive scalar: standard deviation of the lognormal distribution on the log scale.
+#' @param xmin positive scalar: threshold.
+#' @param alpha positive scalar: Pareto shape parameter.
 #' @return Density of the lognormal-Pareto distribution evaluated at x.
 #' @keywords mixture.
 #' @export
