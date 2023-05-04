@@ -3,6 +3,7 @@
 #' This function fits a lognormal-Pareto mixture by maximizing the profile log-likelihood.
 #' @param y numerical vector: random sample from the mixture.
 #' @param minRank integer: minimum possible rank of the threshold.
+#' @param nboot number of bootstrap replications used for estimating the standard errors. If omitted, no standard errors are computed.
 #' @return A list with the following elements:
 #'
 #' xmin: estimated threshold.
@@ -17,15 +18,15 @@
 #'
 #' sigma: estimated standard deviation of the lognormal distribution on the lognormal scale.
 #'
-#' loglik: maximied log-likelihood.
+#' loglik: maximized log-likelihood.
 #'
 #' nit: number of iterations.
 #'
 #' npareto: estimated number of Pareto observations.
 #'
 #' bootstd: bootstrap standard errors of the parameter estimators.
-#' @details At each bootstrap replication, the mixture is estimated with thresholds equal to ys(n-nthresh), ys(n-nthresh+1),..., ys(n),
-#' where n is the sample size and ys is the sample sorted in in ascending order.
+#' @details Estimation is implemented as in Bee(2022). As of standard errors, at each bootstrap replication the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
+#' where n is the sample size and ys is the sample sorted in in ascending order. The latter procedure is implemented via parallel computing.
 #' @keywords mixture; profile likelihood.
 #' @export
 #' @examples
@@ -37,7 +38,7 @@
 #'
 #' @importFrom Rdpack reprompt
 
-LPfit <- function(y,minRank,nbootMLE)
+LPfit <- function(y,minRank,nboot)
 {
   ys <- sort(y)
   n <- length(ys)
@@ -73,21 +74,20 @@ LPfit <- function(y,minRank,nbootMLE)
   sigma <- resBest$sigma
   loglik <- resBest$loglik
   nit <- resBest$nit
-  if (nbootMLE==0)
+  if (nboot==0)
   {
     results <- list(xmin=xminhat,prior=prior,postProb=postProb,alpha=alpha,mu=as.double(mu),sigma=as.vector(sigma),loglik=loglik,nit=nit,npareto=npareto)
     return(results)
   }
   else
   {
-#    library(parallel)
-    nreps.list <- sapply(1:nbootMLE, list)
+    nreps.list <- sapply(1:nboot, list)
     n.cores <- parallel::detectCores()
     clust <- parallel::makeCluster(n.cores)
-    BootMat = matrix(0,nbootMLE,5)
+    BootMat = matrix(0,nboot,5)
     temp <- parallel::parLapply(clust,nreps.list, MLEBoot,ys,minRank,p0,alpha0,mean(ys),var(ys))
     parallel::stopCluster(cl=clust)
-    for (i in 1:nbootMLE)
+    for (i in 1:nboot)
     {
       BootMat[i,] = as.vector(unlist(temp[[i]]))
     }

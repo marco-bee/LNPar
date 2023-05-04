@@ -4,12 +4,14 @@
 \alias{LPfit}
 \title{Estimating a lognormal-Pareto mixture by maximizing the profile log-likelihood}
 \usage{
-LPfit(y, minRank, nbootMLE)
+LPfit(y, minRank, nboot)
 }
 \arguments{
 \item{y}{numerical vector: random sample from the mixture.}
 
 \item{minRank}{integer: minimum possible rank of the threshold.}
+
+\item{nboot}{number of bootstrap replications used for estimating the standard errors. If omitted, no standard errors are computed.}
 }
 \value{
 A list with the following elements:
@@ -26,7 +28,7 @@ mu: estimated expectation of the lognormal distribution on the lognormal scale.
 
 sigma: estimated standard deviation of the lognormal distribution on the lognormal scale.
 
-loglik: maximied log-likelihood.
+loglik: maximized log-likelihood.
 
 nit: number of iterations.
 
@@ -38,8 +40,8 @@ bootstd: bootstrap standard errors of the parameter estimators.
 This function fits a lognormal-Pareto mixture by maximizing the profile log-likelihood.
 }
 \details{
-At each bootstrap replication, the mixture is estimated with thresholds equal to ys(n-nthresh), ys(n-nthresh+1),..., ys(n),
-where n is the sample size and ys is the sample sorted in in ascending order.
+Estimation is implemented as in Bee(2022). As of standard errors, at each bootstrap replication the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
+where n is the sample size and ys is the sample sorted in in ascending order. The latter procedure is implemented via parallel computing.
 }
 \examples{
 mixFit <- LPfit(TN2016,90,0)

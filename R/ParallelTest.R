@@ -9,7 +9,7 @@
 #' @param minRank minimum possible rank of the threshold.
 #' @return A list with the following elements:
 #'
-#' lr: nboot simulated values of the llr test under the null hypothesis.
+#' LR: nboot simulated values of the llr test under the null hypothesis.
 #'
 #' pval: p-value of the test.
 #' @keywords mixture; profile likelihood; log-likelihood ratio test.
@@ -21,7 +21,7 @@
 #' estNull <- c(mean(log(TN2016)),sd(log(TN2016)))
 #' ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))
 #' obsTest <- 2*(ell1-ellNull)
-#' nboot = 2
+#' nboot = 100
 #' TestRes = ParallelTest(nboot,TN2016,obsTest,minRank)
 
 ParallelTest = function(nboot,y,obsTest,minRank)

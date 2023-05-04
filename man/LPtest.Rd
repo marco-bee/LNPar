@@ -13,31 +13,29 @@ LPtest(x, n, muNull, sigmaNull, obsTest, minRank)
 
 \item{sigmaNull}{lognormal standard deviation under the null hypothesis.}
 
-\item{obsTest}{value of the test statistics computed with the data under analysis.}
-
 \item{minRank}{minimum possible rank of the threshold.}
 
-\item{nboot}{number of bootstrap replications.}
+\item{ObsTest:}{observed value of the test}
 }
 \value{
 A list with the following elements:
 
-lr: simulated values of the llr test under the null hypothesis.
-
-pval: p-value of the test.
+LR: observed value of the llr test.
 }
 \description{
-This function computes the bootstrap test for the null hypothesis of
+This function draws a bootstrap sample from the null (lognormal) distribution and computes the test for the null hypothesis of
 a pure lognormal distribution versus the alternative of a lognormal-Pareto
-mixture.
+mixture. To be only used from ParallelTest.
 }
 \examples{
-mixFit <- LPfit(TN2016,90,0)
+minRank = 90
+mixFit <- LPfit(TN2016,minRank,2)
 ell1 <- mixFit$loglik
 estNull <- c(mean(log(TN2016)),sd(log(TN2016)))
 ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))
 obsTest <- 2*(ell1-ellNull)
-resTest <- LPtest(length(TN2016),mean(log(TN2016)),sd(log(TN2016)),obsTest,100,90)
+nboot = 100
+ParallelTest(nboot,TN2016,obsTest,minRank)
 }
 \keyword{likelihood;}
 \keyword{log-likelihood}

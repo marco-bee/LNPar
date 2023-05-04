@@ -1,28 +1,28 @@
 #' Testing for a Pareto tail
 #'
-#' This function computes the bootstrap test for the null hypothesis of
+#' This function draws a bootstrap sample from the null (lognormal) distribution and computes the test for the null hypothesis of
 #' a pure lognormal distribution versus the alternative of a lognormal-Pareto
-#' mixture.
+#' mixture. To be only used from ParallelTest.
 #' @param n sample size
 #' @param muNull lognormal expected value under the null hypothesis.
 #' @param sigmaNull lognormal standard deviation under the null hypothesis.
+#' @param ObsTest: observed value of the test
 #' @param minRank minimum possible rank of the threshold.
-#' @param obsTest value of the test statistics computed with the data under analysis.
-#' @param nboot number of bootstrap replications.
 #' @return A list with the following elements:
 #'
-#' lr: simulated values of the llr test under the null hypothesis.
-#'
-#' pval: p-value of the test.
+#' LR: observed value of the llr test.
 #' @keywords mixture; profile likelihood; log-likelihood ratio test.
 #' @export
 #' @examples
-#' mixFit <- LPfit(TN2016,90,0)
+#' minRank = 90
+#' mixFit <- LPfit(TN2016,minRank,2)
 #' ell1 <- mixFit$loglik
 #' estNull <- c(mean(log(TN2016)),sd(log(TN2016)))
 #' ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))
 #' obsTest <- 2*(ell1-ellNull)
-#' resTest <- LPtest(length(TN2016),mean(log(TN2016)),sd(log(TN2016)),obsTest,100,90)
+#' nboot = 100
+#' ParallelTest(nboot,TN2016,obsTest,minRank)
+
 
 LPtest <- function(x,n,muNull,sigmaNull,obsTest,minRank)
 {
@@ -51,7 +51,7 @@ LPtest <- function(x,n,muNull,sigmaNull,obsTest,minRank)
   xminhat <- th[indice]
   temp1 <- par_logn_mix_known(ysim, p0, xminhat, alpha0, mu0, sigma0)
   ell1 <- temp1$loglik
-  lr <- pmax(0,2*(ell1-ell0)) # sometimes slightly negative, as ell1 is computed numerically
-  results <- list(res=lr)
+  LR <- pmax(0,2*(ell1-ell0)) # sometimes slightly negative, as ell1 is computed numerically
+  results <- list(res=LR)
   results
 }
