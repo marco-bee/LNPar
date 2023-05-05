@@ -7,15 +7,15 @@
 dLnormParMix(x, pi, mu, sigma, xmin, alpha)
 }
 \arguments{
-\item{x}{numerical vector: values where the density has to be evaluated.}
+\item{x}{non-negative numerical vector: values where the density has to be evaluated.}
 
 \item{mu}{scalar: expected value of the lognormal distribution on the log scale.}
 
-\item{sigma}{scalar: standard deviation of the lognormal distribution on the log scale.}
+\item{sigma}{positive scalar: standard deviation of the lognormal distribution on the log scale.}
 
-\item{xmin}{scalar: threshold.}
+\item{xmin}{positive scalar: threshold.}
 
-\item{alpha}{non-negative scalar: Pareto shape parameter.}
+\item{alpha}{positive scalar: Pareto shape parameter.}
 
 \item{p}{scalar, 0 < p < 1: mixing weight.}
 }

@@ -7,11 +7,11 @@
 dpareto(x, xmin, alpha)
 }
 \arguments{
-\item{x}{numerical vector: values where the density has to be evaluated.}
+\item{x}{numerical vector (>xmin): values where the density has to be evaluated.}
 
-\item{xmin}{scalar: Pareto scale parameter.}
+\item{xmin}{positive scalar: Pareto scale parameter.}
 
-\item{alpha}{non-negative scalar: Pareto shape parameter.}
+\item{alpha}{positive scalar: Pareto shape parameter.}
 }
 \value{
 Density of the Pareto distribution evaluated at x.

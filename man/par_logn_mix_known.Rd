@@ -7,17 +7,17 @@
 par_logn_mix_known(y, prior1, th, alpha, mu, sigma)
 }
 \arguments{
-\item{y}{numerical vector: random sample from the mixture.}
+\item{y}{non-negative numerical vector: random sample from the mixture.}
 
 \item{prior1}{scalar (0<prior1<1): starting value of the prior probability.}
 
-\item{th}{scalar: threshold.}
+\item{th}{positive scalar: threshold.}
 
 \item{alpha}{non-negative scalar: starting value of the Pareto shape parameter.}
 
 \item{mu}{scalar: starting value of the lognormal parameter mu.}
 
-\item{sigma}{scalar: starting value of the lognormal parameter sigma.}
+\item{sigma}{positive scalar: starting value of the lognormal parameter sigma.}
 }
 \value{
 A list with the following elements:
@@ -42,8 +42,7 @@ nit: number of iterations.
 This function estimates the parameters of a Pareto and a lognormal density, assuming a known threshold.
 }
 \examples{
-y <- read.delim('impreseTN2016.csv',header=F,sep=',')
-mixFit <- par_logn_mix_known(y, .5, 4700, 3, 7, 1.2)
+mixFit <- par_logn_mix_known(TN2016, .5, 4700, 3, 7, 1.2)
 }
 \keyword{EM}
 \keyword{algorithm.}

@@ -7,30 +7,30 @@
 MLEBoot(x, y, minRank, p0, alpha0, mu0, Psi0)
 }
 \arguments{
-\item{y}{numerical vector: random sample from the mixture.}
+\item{y}{numerical vector: observed sample.}
 
-\item{minRank}{integer: minimum possible rank of the threshold.}
+\item{minRank}{positive integer: minimum possible rank of the threshold.}
 
 \item{p0}{(0<p0<1): starting value of the mixing weight.}
 
 \item{alpha0}{non-negative scalar: starting value of the Pareto shape parameter.}
 
-\item{mu0}{scalar: starting value of the expectation of the lognormal distribution on the log scale.}
+\item{mu0}{scalar: starting value of the log-expectation of the lognormal distribution on the log scale.}
 
-\item{sigma0}{non-negative scalar: starting value of the standard deviation of the lognormal distribution on the log scale.}
+\item{sigma0}{non-negative scalar: starting value of the log-standard deviation of the lognormal distribution on the log scale.}
 }
 \value{
-A bootstrap sample.
+Estimated parameters obtained from a bootstrap sample.
 }
 \description{
 This function draws a bootstrap sample and uses it to estimate the parameters of a lognormal-Pareto mixture distribution. Since this is typically called by LPfit, see the help of LPfit.
 }
 \details{
 At each bootstrap replication, the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
-where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfit (see the examples below).
+where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfit (see the example below).
 }
 \examples{
-# Typical use via LPfit
+# Typical usage via LPfit
 
 resFit <- LPfit(y,90,500)
 parsStd <- resFit$bootStd

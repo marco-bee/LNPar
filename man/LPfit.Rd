@@ -34,14 +34,15 @@ nit: number of iterations.
 
 npareto: estimated number of Pareto observations.
 
-bootstd: bootstrap standard errors of the parameter estimators.
+bootstd: bootstrap standard errors of the estimators.
 }
 \description{
 This function fits a lognormal-Pareto mixture by maximizing the profile log-likelihood.
 }
 \details{
-Estimation is implemented as in Bee(2022). As of standard errors, at each bootstrap replication the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
-where n is the sample size and ys is the sample sorted in in ascending order. The latter procedure is implemented via parallel computing.
+Estimation is implemented as in Bee (2022). As of standard errors, at each bootstrap replication the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
+where n is the sample size and ys is the sample sorted in ascending order. The latter procedure is implemented via parallel computing.
+If the algorithm does not converge in 1000 iterations, a message is displayed.
 }
 \examples{
 mixFit <- LPfit(TN2016,90,0)

@@ -9,7 +9,7 @@ rpareto(n, xmin, alpha)
 \arguments{
 \item{n}{positive integer: number of simulated random numbers.}
 
-\item{xmin}{scalar: Pareto scale parameter.}
+\item{xmin}{positive scalar: Pareto scale parameter.}
 
 \item{alpha}{non-negative scalar: Pareto shape parameter.}
 }

@@ -13,14 +13,14 @@ rLnormParMix(n, pi, mu, sigma, xmin, alpha)
 
 \item{mu}{scalar: expected value of the lognormal distribution on the log scale.}
 
-\item{sigma}{scalar: standard deviation of the lognormal distribution on the log scale.}
+\item{sigma}{positive scalar: standard deviation of the lognormal distribution on the log scale.}
 
-\item{xmin}{scalar: threshold.}
+\item{xmin}{positive scalar: threshold.}
 
 \item{alpha}{non-negative scalar: Pareto shape parameter.}
 }
 \value{
-n iid random unmbers from the lognormal-Pareto distribution.
+n iid random numbers from the lognormal-Pareto distribution.
 }
 \description{
 This function simulates random numbers for a mixture of a lognormal and a Pareto r.v.
