@@ -2,7 +2,7 @@
 #'
 #' This function computes the density of a mixture of a lognormal and a Pareto r.v.
 #' @param x non-negative numerical vector: values where the density has to be evaluated.
-#' @param p scalar, 0 < p < 1: mixing weight.
+#' @param pi scalar, 0 < p < 1: mixing weight.
 #' @param mu scalar: expected value of the lognormal distribution on the log scale.
 #' @param sigma positive scalar: standard deviation of the lognormal distribution on the log scale.
 #' @param xmin positive scalar: threshold.

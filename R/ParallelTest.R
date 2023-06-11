@@ -28,10 +28,15 @@ ParallelTest = function(nboot,y,obsTest,minRank)
 {
 nreps.list <- sapply(1:nboot, list)
 n = length(y)
-n.cores <- parallel::detectCores()
+chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
+if (nzchar(chk) && chk == "TRUE") {
+  n.cores <- 2L
+} else {
+  n.cores <- parallel::detectCores()
+}
 clust <- parallel::makeCluster(n.cores)
 LRVec = rep(0,nboot)
-temp <- parallel::parLapply(clust,nreps.list,LPtest,n,mean(log(y)),sd(log(y)),obsTest,minRank)
+temp <- parallel::parLapply(clust,nreps.list,LPtest,n,mean(log(y)),sd(log(y)),minRank)
 parallel::stopCluster(cl=clust)
 for (i in 1:nboot)
 {

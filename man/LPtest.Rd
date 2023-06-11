@@ -4,20 +4,19 @@
 \alias{LPtest}
 \title{Testing for a Pareto tail}
 \usage{
-LPtest(x, n, muNull, sigmaNull, obsTest, minRank)
+LPtest(x, n, muNull, sigmaNull, minRank)
 }
 \arguments{
-\item{x}{socket cluster}
+\item{x}{list: sequence of integers 1,...,K, where K is the mumber of datasets. Set x = 1 in case
+of a single dataset.}
 
-\item{n}{sample size}
+\item{n}{sample size.}
 
 \item{muNull}{lognormal expected value under the null hypothesis.}
 
 \item{sigmaNull}{lognormal standard deviation under the null hypothesis.}
 
 \item{minRank}{minimum possible rank of the threshold.}
-
-\item{ObsTest:}{observed value of the test}
 }
 \value{
 A list with the following elements:
@@ -30,14 +29,11 @@ a pure lognormal distribution versus the alternative of a lognormal-Pareto
 mixture. To be only called from ParallelTest.
 }
 \examples{
+n = 100
+muNull = mean(log(TN2016))
+sigmaNull = sd(log(TN2016))
 minRank = 90
-mixFit <- LPfit(TN2016,minRank,2)
-ell1 <- mixFit$loglik
-estNull <- c(mean(log(TN2016)),sd(log(TN2016)))
-ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))
-obsTest <- 2*(ell1-ellNull)
-nboot = 100
-ParallelTest(nboot,TN2016,obsTest,minRank)
+res = LPtest(1,n,muNull,sigmaNull,minRank)
 }
 \references{
 {

@@ -83,7 +83,12 @@ LPfit <- function(y,minRank,nboot)
   else
   {
     nreps.list <- sapply(1:nboot, list)
-    n.cores <- parallel::detectCores()
+    chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
+    if (nzchar(chk) && chk == "TRUE") {
+      n.cores <- 2L
+    } else {
+      n.cores <- parallel::detectCores()
+    }
     clust <- parallel::makeCluster(n.cores)
     BootMat = matrix(0,nboot,5)
     temp <- parallel::parLapply(clust,nreps.list, MLEBoot,ys,minRank,p0,alpha0,mean(ys),var(ys))

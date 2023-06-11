@@ -8,7 +8,7 @@
 #' @keywords density.
 #' @export
 #' @examples
-#' parDens <- dPareto(5,4,1.5)
+#' parDens <- dpareto(5,4,1.5)
 
 dpareto <- function(x, xmin, alpha)
 {

@@ -3,32 +3,30 @@
 #' This function draws a bootstrap sample from the null (lognormal) distribution and computes the test for the null hypothesis of
 #' a pure lognormal distribution versus the alternative of a lognormal-Pareto
 #' mixture. To be only called from ParallelTest.
-#' @param x socket cluster
-#' @param n sample size
+#' @param x list: sequence of integers 1,...,K, where K is the mumber of datasets. Set x = 1 in case
+#' of a single dataset.
+#' @param n sample size.
 #' @param muNull lognormal expected value under the null hypothesis.
 #' @param sigmaNull lognormal standard deviation under the null hypothesis.
-#' @param ObsTest: observed value of the test
 #' @param minRank minimum possible rank of the threshold.
 #' @return A list with the following elements:
 #'
 #' LR: observed value of the llr test.
 #' @keywords mixture; profile likelihood; log-likelihood ratio test.
 #' @export
+#' @import stats
 #' @examples
+#' n = 100
+#' muNull = mean(log(TN2016))
+#' sigmaNull = sd(log(TN2016))
 #' minRank = 90
-#' mixFit <- LPfit(TN2016,minRank,2)
-#' ell1 <- mixFit$loglik
-#' estNull <- c(mean(log(TN2016)),sd(log(TN2016)))
-#' ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))
-#' obsTest <- 2*(ell1-ellNull)
-#' nboot = 100
-#' ParallelTest(nboot,TN2016,obsTest,minRank)
+#' res = LPtest(1,n,muNull,sigmaNull,minRank)
 #' @references{
 #'   \insertRef{bee22}{LNPar}
 #' }
 #'
 
-LPtest <- function(x,n,muNull,sigmaNull,obsTest,minRank)
+LPtest <- function(x,n,muNull,sigmaNull,minRank)
 {
   ysim <- sort(rlnorm(n,muNull,sigmaNull))
   th <- ysim[minRank:(n-1)]

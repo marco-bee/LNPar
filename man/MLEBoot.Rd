@@ -7,6 +7,9 @@
 MLEBoot(x, y, minRank, p0, alpha0, mu0, Psi0)
 }
 \arguments{
+\item{x}{list: sequence of integers 1,...,K, where K is the mumber of datasets. Set x = 1 in case
+of a single dataset.}
+
 \item{y}{numerical vector: observed sample.}
 
 \item{minRank}{positive integer: minimum possible rank of the threshold.}
@@ -17,7 +20,7 @@ MLEBoot(x, y, minRank, p0, alpha0, mu0, Psi0)
 
 \item{mu0}{scalar: starting value of the log-expectation of the lognormal distribution on the log scale.}
 
-\item{sigma0}{non-negative scalar: starting value of the log-standard deviation of the lognormal distribution on the log scale.}
+\item{Psi0}{non-negative scalar: starting value of the log-variance of the lognormal distribution on the log scale.}
 }
 \value{
 Estimated parameters obtained from a bootstrap sample.
@@ -32,7 +35,7 @@ where n is the sample size and ys is the sample in ascending order. The function
 \examples{
 # Typical usage via LPfit
 
-resFit <- LPfit(y,90,500)
+resFit <- LPfit(TN2016,90,2)
 parsStd <- resFit$bootStd
 }
 \references{
