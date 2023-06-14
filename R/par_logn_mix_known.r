@@ -1,4 +1,4 @@
-#' Estimate the parameters of a Pareto and a lognormal density, assuming a known threshold
+#' Estimate the parameters of a lognormal-Pareto density, assuming a known threshold
 #'
 #' This function estimates the parameters of a Pareto and a lognormal density, assuming a known threshold.
 #' @param y non-negative numerical vector: random sample from the mixture.
@@ -24,7 +24,6 @@
 #' loglik: maximized log-likelihood.
 #'
 #' nit: number of iterations.
-#' @keywords mixture, EM algorithm.
 #' @export
 #' @examples
 #' mixFit <- par_logn_mix_known(TN2016, .5, 4700, 3, 7, 1.2)

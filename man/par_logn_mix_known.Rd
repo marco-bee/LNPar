@@ -2,7 +2,7 @@
 % Please edit documentation in R/par_logn_mix_known.r
 \name{par_logn_mix_known}
 \alias{par_logn_mix_known}
-\title{Estimate the parameters of a Pareto and a lognormal density, assuming a known threshold}
+\title{Estimate the parameters of a lognormal-Pareto density, assuming a known threshold}
 \usage{
 par_logn_mix_known(y, prior1, th, alpha, mu, sigma)
 }
@@ -44,6 +44,3 @@ This function estimates the parameters of a Pareto and a lognormal density, assu
 \examples{
 mixFit <- par_logn_mix_known(TN2016, .5, 4700, 3, 7, 1.2)
 }
-\keyword{EM}
-\keyword{algorithm.}
-\keyword{mixture,}
