@@ -1,3 +1,3 @@
-# LNPar 1.0.0.9000
+# LNPar 0.1.0
 
-* Added a `NEWS.md` file to track changes to the package.
+* The first release of LNPar provides facilities for estimation and testing for a lognormal-Pareto mixture.

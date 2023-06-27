@@ -4,7 +4,7 @@ Version: 0.1.0
 Authors@R: 
     person("Marco", "Bee", , "marco.bee@unitn.it", role = c("aut", "cre"),
            comment = c(ORCID = '0000-0002-9579-3650'))
-Description: Functions for estimation and testing of a Lognormal Pareto mixture. See Bee, M. (2022) <doi:10.1007/s11634-022-00497-4>.
+Description: Estimation and testing for a lognormal-Pareto mixture. See Bee, M. (2022) <doi:10.1007/s11634-022-00497-4>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

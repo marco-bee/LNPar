@@ -19,8 +19,6 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(LNPar)
-mixFit <- LPfit(TN2016,90,0)
-#> algorithm did not converge in  1000  iterations 
-#> algorithm did not converge in  1000  iterations 
-#> algorithm did not converge in  1000  iterations
+ySim <- rLnormParMix(100,.5,0,1,4,1.5)
+mixFit <- LPfit(ySim,90,0)
 ```

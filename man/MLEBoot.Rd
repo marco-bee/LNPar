@@ -26,17 +26,11 @@ of a single dataset.}
 Estimated parameters obtained from a bootstrap sample.
 }
 \description{
-This function draws a bootstrap sample and uses it to estimate the parameters of a lognormal-Pareto mixture distribution. Since this is typically called by LPfit, see the help of LPfit.
+This function draws a bootstrap sample and uses it to estimate the parameters of a lognormal-Pareto mixture distribution. Since this is typically called by LPfit, see the help of LPfit for examples.
 }
 \details{
 At each bootstrap replication, the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
 where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfit (see the example below).
-}
-\examples{
-# Typical usage via LPfit
-
-resFit <- LPfit(TN2016,90,2)
-parsStd <- resFit$bootStd
 }
 \references{
 Bee, M. (2022), “On discriminating between lognormal and Pareto tail: a mixture-based approach”,

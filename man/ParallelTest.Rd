@@ -28,14 +28,14 @@ a pure lognormal distribution versus the alternative of a lognormal-Pareto
 mixture. Implemented via parallel computing.
 }
 \examples{
-minRank = 90
+\donttest{minRank = 90
 mixFit <- LPfit(TN2016,minRank,0)
 ell1 <- mixFit$loglik
 estNull <- c(mean(log(TN2016)),sd(log(TN2016)))
 ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))
 obsTest <- 2*(ell1-ellNull)
-nboot = 100
-TestRes = ParallelTest(nboot,TN2016,obsTest,minRank)
+nboot = 2
+TestRes = ParallelTest(nboot,TN2016,obsTest,minRank)}
 }
 \keyword{likelihood;}
 \keyword{log-likelihood}
