@@ -30,7 +30,6 @@
 
 par_logn_mix_known <- function(y, prior1, th, alpha, mu, sigma)
 {
-options(digits = 15)	    # format for the display of numerical results
 y <- sort(y)
 N <- length(y)                                     # number of observations
 eps <- 1e-10                                   # convergence criterion
