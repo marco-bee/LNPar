@@ -4,7 +4,7 @@
 \alias{MLEBoot}
 \title{Bootstrap standard errors for the estimators of a lognormal-Pareto mixture}
 \usage{
-MLEBoot(x, y, minRank, p0, alpha0, mu0, Psi0)
+MLEBoot(x, y, minRank, takeOut, pimax, p0, alpha0, mu0, Psi0)
 }
 \arguments{
 \item{x}{list: sequence of integers 1,...,K, where K is the mumber of datasets. Set x = 1 in case

@@ -3,6 +3,8 @@
 #' This function fits a lognormal-Pareto mixture by maximizing the profile log-likelihood.
 #' @param y numerical vector: random sample from the mixture.
 #' @param minRank integer: minimum possible rank of the threshold.
+#' @param takeOut integer: minimum number of observations above the threshold (see Details).
+#' @param pimax integer: prior probability threshold for estimation of a pure lognormal (see Details).
 #' @param nboot number of bootstrap replications used for estimating the standard errors. If omitted, no standard errors are computed.
 #' @return A list with the following elements:
 #'
@@ -25,13 +27,15 @@
 #' npareto: estimated number of Pareto observations.
 #'
 #' bootstd: bootstrap standard errors of the estimators.
-#' @details Estimation is implemented as in Bee (2022). As of standard errors, at each bootstrap replication the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
+#' @details Estimation is implemented as in Bee (2022). The method is applied to each possible threshold th (minRank <= th <= n-takeOut).
+#' If the estimated prior probability is larger than pimin, the prior probability is set equal to 1, and a pure lognormal is estimated via MLE.
+#' As of standard errors, at each bootstrap replication the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
 #' where n is the sample size and ys is the sample sorted in ascending order. The latter procedure is implemented via parallel computing.
 #' If the algorithm does not converge in 1000 iterations, a message is displayed.
 #' @keywords mixture; profile likelihood.
 #' @export
 #' @examples
-#' mixFit <- LPfit(TN2016,90,0)
+#' mixFit <- LPfit(TN2016,90,5,0.99,0)
 #' @references{
 #'   \insertRef{bee22}{LNPar}
 #' }
@@ -39,7 +43,7 @@
 #'
 #' @importFrom Rdpack reprompt
 
-LPfit <- function(y,minRank,nboot)
+LPfit <- function(y,minRank,takeOut,pimax,nboot)
 {
   ys <- sort(y)
   n <- length(ys)
@@ -51,12 +55,10 @@ LPfit <- function(y,minRank,nboot)
   alpha0 <- length(ys[ys>a0]) / (sum(log(ys[ys>a0]/a0)))
   mu0 <- mean(log(ys))+1
   Psi0 <- var(log(ys))
-#  th <- ys
-  th <- ys[minRank:(n-1)]
+  th <- ys[minRank:(n-takeOut)]
   nthresh <- length(th)
   resMat <- matrix(0,nthresh,5)
   paretoObs <- cbind(th,matrix(0,nthresh,2))
-  # for (i in minRank:(n-1))
   for (i in 1:nthresh)
   {
     a <- th[i]
@@ -65,7 +67,6 @@ LPfit <- function(y,minRank,nboot)
   }
   indice <- which.max(resMat[,5])
   xminhat <- th[indice]
-  # xminhat <- ys[indice+minRank]
   resBest <- par_logn_mix_known(ys, p0, xminhat, alpha0, mean(ys), sd(ys))
   npareto <- n * (1-resBest$prior)
   prior <- resBest$prior
@@ -75,6 +76,15 @@ LPfit <- function(y,minRank,nboot)
   sigma <- resBest$sigma
   loglik <- resBest$loglik
   nit <- resBest$nit
+  if (prior > pimax)
+  {
+    prior <- 1
+    postProb <- cbind(rep(1,N),rep(0,N))		# open matrix for posterior probabilities
+    alpha <- NA
+    mu <- mean(log(y))
+    sigma <- sd(log(y))
+    loglik <- sum(log(dlnorm(y,mu,sigma)))
+  }
   if (nboot==0)
   {
     results <- list(xmin=xminhat,prior=prior,postProb=postProb,alpha=alpha,mu=as.double(mu),sigma=as.vector(sigma),loglik=loglik,nit=nit,npareto=npareto)
@@ -91,7 +101,7 @@ LPfit <- function(y,minRank,nboot)
     }
     clust <- parallel::makeCluster(n.cores)
     BootMat = matrix(0,nboot,5)
-    temp <- parallel::parLapply(clust,nreps.list, MLEBoot,ys,minRank,p0,alpha0,mean(ys),var(ys))
+    temp <- parallel::parLapply(clust,nreps.list, MLEBoot,ys,minRank,takeOut,pimax,p0,alpha0,mean(ys),var(ys))
     parallel::stopCluster(cl=clust)
     for (i in 1:nboot)
     {
