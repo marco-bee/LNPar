@@ -79,7 +79,7 @@ LPfit <- function(y,minRank,takeOut,pimax,nboot)
   if (prior > pimax)
   {
     prior <- 1
-    postProb <- cbind(rep(1,N),rep(0,N))		# open matrix for posterior probabilities
+    postProb <- cbind(rep(1,n),rep(0,n))		# open matrix for posterior probabilities
     alpha <- NA
     mu <- mean(log(y))
     sigma <- sd(log(y))

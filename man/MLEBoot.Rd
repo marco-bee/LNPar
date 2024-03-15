@@ -14,6 +14,10 @@ of a single dataset.}
 
 \item{minRank}{positive integer: minimum possible rank of the threshold.}
 
+\item{takeOut}{integer: minimum number of observations above the threshold (see Details).}
+
+\item{pimax}{integer: prior probability threshold for estimation of a pure lognormal (see Details).}
+
 \item{p0}{(0<p0<1): starting value of the mixing weight.}
 
 \item{alpha0}{non-negative scalar: starting value of the Pareto shape parameter.}
@@ -29,8 +33,13 @@ Estimated parameters obtained from a bootstrap sample.
 This function draws a bootstrap sample and uses it to estimate the parameters of a lognormal-Pareto mixture distribution. Since this is typically called by LPfit, see the help of LPfit for examples.
 }
 \details{
-At each bootstrap replication, the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
-where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfit (see the example below).
+At each bootstrap replication, the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n-takeOut),
+where n is the sample size and ys is the sample in ascending order.
+If the estimated prior probability is larger than pimin, the prior probability is set equal to 1, and a pure lognormal is estimated via MLE.
+The function is typically called by LPfit (see the example below).
+}
+\examples{
+mixFit <- LPfit(TN2016,90,5,0.99,10)
 }
 \references{
 Bee, M. (2022), “On discriminating between lognormal and Pareto tail: a mixture-based approach”,
