@@ -4,7 +4,6 @@
 #' @param y numerical vector: random sample from the mixture.
 #' @param minRank integer: minimum possible rank of the threshold.
 #' @param takeOut integer: minimum number of observations above the threshold (see Details).
-#' @param pimax integer: prior probability threshold for estimation of a pure lognormal (see Details).
 #' @param nboot number of bootstrap replications used for estimating the standard errors. If omitted, no standard errors are computed.
 #' @return A list with the following elements:
 #'
@@ -28,14 +27,13 @@
 #'
 #' bootstd: bootstrap standard errors of the estimators.
 #' @details Estimation is implemented as in Bee (2022). The method is applied to each possible threshold th (minRank <= th <= n-takeOut).
-#' If the estimated prior probability is larger than pimin, the prior probability is set equal to 1, and a pure lognormal is estimated via MLE.
 #' As of standard errors, at each bootstrap replication the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
 #' where n is the sample size and ys is the sample sorted in ascending order. The latter procedure is implemented via parallel computing.
 #' If the algorithm does not converge in 1000 iterations, a message is displayed.
 #' @keywords mixture; profile likelihood.
 #' @export
 #' @examples
-#' mixFit <- LPfit(TN2016,90,5,0.99,0)
+#' mixFit <- LPfit(TN2016,90,5,0)
 #' @references{
 #'   \insertRef{bee22}{LNPar}
 #' }
@@ -43,7 +41,7 @@
 #'
 #' @importFrom Rdpack reprompt
 
-LPfit <- function(y,minRank,takeOut,pimax,nboot)
+LPfit <- function(y,minRank,takeOut,nboot)
 {
   ys <- sort(y)
   n <- length(ys)
@@ -76,15 +74,6 @@ LPfit <- function(y,minRank,takeOut,pimax,nboot)
   sigma <- resBest$sigma
   loglik <- resBest$loglik
   nit <- resBest$nit
-  if (prior > pimax)
-  {
-    prior <- 1
-    postProb <- cbind(rep(1,n),rep(0,n))		# open matrix for posterior probabilities
-    alpha <- NA
-    mu <- mean(log(y))
-    sigma <- sd(log(y))
-    loglik <- sum(log(dlnorm(y,mu,sigma)))
-  }
   if (nboot==0)
   {
     results <- list(xmin=xminhat,prior=prior,postProb=postProb,alpha=alpha,mu=as.double(mu),sigma=as.vector(sigma),loglik=loglik,nit=nit,npareto=npareto)
