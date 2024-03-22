@@ -99,7 +99,7 @@ if (n1>0)
     if (is.nan(prior[1]) == T || prior[1] == 1 || is.nan(prior[2]) == T)
     {
       if (is.nan(prior[1]) == T)
-        prior[1] = NA
+      prior[1] = 1
       alpha <- NA				# M step: alpha
       mu <- mean(log(y))
       sigma <- ((N-1)/N)*sd(log(y))
