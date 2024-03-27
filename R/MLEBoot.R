@@ -19,11 +19,11 @@
 #' The function is typically called by LPfit (see the example below).
 #' @export
 #' @examples
-#' mixFit <- LPfit(TN2016,90,5,0.99,10)
+#' mixFit <- LPfit(TN2016,90,5,10)
 #' @references  Bee, M. (2022), “On discriminating between lognormal and Pareto tail: a mixture-based approach”,
 #' Advances in Data Analysis and Classification, https://doi.org/10.1007/s11634-022-00497-4
 
-MLEBoot = function(x,y,minRank,takeOut,pimax,p0,alpha0,mu0,Psi0)
+MLEBoot = function(x,y,minRank,takeOut,p0,alpha0,mu0,Psi0)
 {
   samSiz <- length(y)
   indici = sample(samSiz, samSiz, replace = TRUE)
@@ -42,14 +42,17 @@ MLEBoot = function(x,y,minRank,takeOut,pimax,p0,alpha0,mu0,Psi0)
   xminhat <- th[indice]
   temp <- par_logn_mix_known(y, p0, xminhat, alpha0, mean(y), sd(y))
   resBest <- c(temp$prior,temp$alpha,temp$mu,temp$sigma,temp$loglik)
-  if (temp$prior > pimax)
+  if (is.nan(prior[1]) == T || prior[1] == 1 || is.nan(prior[2]) == T)
   {
-    prior <- 1
-    alpha <- NA
+    if (is.nan(prior[1]) == T)
+      prior[1] = 1
+    alpha <- NA				# M step: alpha
     mu <- mean(log(y))
-    sigma <- sd(log(y))
-    loglik <- sum(log(dlnorm(y,mu,sigma)))
-    resBest <- c(prior,alpha,mu,sigma,loglik)
+    sigma <- ((N-1)/N)*sd(log(y))
+    loglik <- sum(log(dlnorm(y,mu,sigma)))                  # evaluate log-likelihood function
+    resBest <- c(temp$prior,temp$alpha,temp$mu,temp$sigma,temp$loglik)
+    change = 0
+    break
   }
   results <- list(res=resBest)
 }

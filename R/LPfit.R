@@ -90,7 +90,7 @@ LPfit <- function(y,minRank,takeOut,nboot)
     }
     clust <- parallel::makeCluster(n.cores)
     BootMat = matrix(0,nboot,5)
-    temp <- parallel::parLapply(clust,nreps.list, MLEBoot,ys,minRank,takeOut,pimax,p0,alpha0,mean(ys),var(ys))
+    temp <- parallel::parLapply(clust,nreps.list, MLEBoot,ys,minRank,takeOut,p0,alpha0,mean(ys),var(ys))
     parallel::stopCluster(cl=clust)
     for (i in 1:nboot)
     {
