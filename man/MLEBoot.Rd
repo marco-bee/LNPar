@@ -23,8 +23,6 @@ of a single dataset.}
 \item{mu0}{scalar: starting value of the log-expectation of the lognormal distribution on the log scale.}
 
 \item{Psi0}{non-negative scalar: starting value of the log-variance of the lognormal distribution on the log scale.}
-
-\item{pimax}{integer: prior probability threshold for estimation of a pure lognormal (see Details).}
 }
 \value{
 Estimated parameters obtained from a bootstrap sample.

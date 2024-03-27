@@ -6,7 +6,6 @@
 #' @param y numerical vector: observed sample.
 #' @param minRank positive integer: minimum possible rank of the threshold.
 #' @param takeOut integer: minimum number of observations above the threshold (see Details).
-#' @param pimax integer: prior probability threshold for estimation of a pure lognormal (see Details).
 #' @param p0 (0<p0<1): starting value of the mixing weight.
 #' @param alpha0 non-negative scalar: starting value of the Pareto shape parameter.
 #' @param mu0 scalar: starting value of the log-expectation of the lognormal distribution on the log scale.
@@ -42,15 +41,15 @@ MLEBoot = function(x,y,minRank,takeOut,p0,alpha0,mu0,Psi0)
   xminhat <- th[indice]
   temp <- par_logn_mix_known(y, p0, xminhat, alpha0, mean(y), sd(y))
   resBest <- c(temp$prior,temp$alpha,temp$mu,temp$sigma,temp$loglik)
-  if (is.nan(prior[1]) == T || prior[1] == 1 || is.nan(prior[2]) == T)
+  if (is.nan(temp$prior[1]) == T || temp$prior[1] == 1 || is.nan(temp$prior[2]) == T)
   {
-    if (is.nan(prior[1]) == T)
+    if (is.nan(temp$prior[1]) == T)
       prior[1] = 1
     alpha <- NA				# M step: alpha
     mu <- mean(log(y))
     sigma <- ((N-1)/N)*sd(log(y))
     loglik <- sum(log(dlnorm(y,mu,sigma)))                  # evaluate log-likelihood function
-    resBest <- c(temp$prior,temp$alpha,temp$mu,temp$sigma,temp$loglik)
+    resBest <- c(prior,alpha,mu,sigma,loglik)
     change = 0
     break
   }
