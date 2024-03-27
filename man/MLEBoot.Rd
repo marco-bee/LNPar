@@ -4,7 +4,7 @@
 \alias{MLEBoot}
 \title{Bootstrap standard errors for the estimators of a lognormal-Pareto mixture}
 \usage{
-MLEBoot(x, y, minRank, takeOut, pimax, p0, alpha0, mu0, Psi0)
+MLEBoot(x, y, minRank, takeOut, p0, alpha0, mu0, Psi0)
 }
 \arguments{
 \item{x}{list: sequence of integers 1,...,K, where K is the mumber of datasets. Set x = 1 in case
@@ -16,8 +16,6 @@ of a single dataset.}
 
 \item{takeOut}{integer: minimum number of observations above the threshold (see Details).}
 
-\item{pimax}{integer: prior probability threshold for estimation of a pure lognormal (see Details).}
-
 \item{p0}{(0<p0<1): starting value of the mixing weight.}
 
 \item{alpha0}{non-negative scalar: starting value of the Pareto shape parameter.}
@@ -25,6 +23,8 @@ of a single dataset.}
 \item{mu0}{scalar: starting value of the log-expectation of the lognormal distribution on the log scale.}
 
 \item{Psi0}{non-negative scalar: starting value of the log-variance of the lognormal distribution on the log scale.}
+
+\item{pimax}{integer: prior probability threshold for estimation of a pure lognormal (see Details).}
 }
 \value{
 Estimated parameters obtained from a bootstrap sample.
@@ -39,7 +39,7 @@ If the estimated prior probability is larger than pimin, the prior probability i
 The function is typically called by LPfit (see the example below).
 }
 \examples{
-mixFit <- LPfit(TN2016,90,5,0.99,10)
+mixFit <- LPfit(TN2016,90,5,10)
 }
 \references{
 Bee, M. (2022), “On discriminating between lognormal and Pareto tail: a mixture-based approach”,
