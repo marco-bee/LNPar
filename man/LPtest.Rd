@@ -37,7 +37,7 @@ res = LPtest(1,n,muNull,sigmaNull,minRank)
 }
 \references{
 {
-\insertRef{bee22}{LNPar}
+\insertRef{bee24a}{LNPar}
 }
 }
 \keyword{likelihood;}

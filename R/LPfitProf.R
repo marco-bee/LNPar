@@ -1,4 +1,4 @@
-#' Estimating a lognormal-Pareto mixture by maximizing the profile log-likelihood
+#' Profile likelihood estimation of a lognormal-Pareto mixture
 #'
 #' This function fits a lognormal-Pareto mixture by maximizing the profile log-likelihood.
 #' @param y numerical vector: random sample from the mixture.
@@ -31,9 +31,9 @@
 #' @keywords mixture; profile likelihood.
 #' @export
 #' @examples
-#' mixFit <- LPfit(TN2016,90,0)
+#' mixFit <- LPfitProf(TN2016,90,0)
 #' @references{
-#'   \insertRef{bee22}{LNPar}
+#'   \insertRef{bee24a}{LNPar}
 #' }
 #'
 #'
