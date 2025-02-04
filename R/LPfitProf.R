@@ -39,7 +39,7 @@
 #'
 #' @importFrom Rdpack reprompt
 
-LPfit <- function(y,minRank,nboot)
+LPfitProf <- function(y,minRank,nboot)
 {
   ys <- sort(y)
   n <- length(ys)

@@ -10,11 +10,12 @@
 #' @examples
 #' parDens <- dpareto(5,4,1.5)
 
-dpareto <- function(x, xmin, alpha)
+dpareto <- function (x, xmin, alpha)
 {
-y = matrix(0,length(x),1)
-x1 = x[x>=xmin]
-y[x<xmin] = 0
-y[x>=xmin] = alpha * (xmin^alpha) / (x1^(alpha+1))
-return(y)
+  y = matrix(0, length(x), 1)
+  x1 = x[x >= xmin]
+  y[x < xmin] = 0
+  y[x >= xmin] = alpha * (xmin/x1)^alpha * (1/x1)
+  return(y)
 }
+
