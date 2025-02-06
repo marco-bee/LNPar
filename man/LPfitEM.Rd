@@ -9,30 +9,24 @@ LPfitEM(y, eps, maxiter, qxmin0)
 \arguments{
 \item{y}{numerical vector: random sample from the mixture.}
 
-\item{minRank}{integer: minimum possible rank of the threshold.}
+\item{eps}{non-negative scalar: tolerance for the stopping rule.}
 
-\item{nboot}{number of bootstrap replications used for estimating the standard errors. If omitted, no standard errors are computed.}
+\item{maxiter}{non-negative integer: maximum number of iterations of the ECME algorithm.}
+
+\item{qxmin0}{scalar, 0 < qxmin0 < 1: quantile level used for determining the starting value of xmin.}
 }
 \value{
 A list with the following elements:
 
-xmin: estimated threshold.
-
-prior: estimated mixing weight.
-
-postProb: matrix of posterior probabilities.
-
-alpha: estimated Pareto shape parameter.
-
-mu: estimated expectation of the lognormal distribution on the lognormal scale.
-
-sigma: estimated standard deviation of the lognormal distribution on the lognormal scale.
+pars: estimated parameters (p, alpha, mu, sigma, xmin).
 
 loglik: maximized log-likelihood.
 
-nit: number of iterations.
+rankECME: estimated rank of xmin.
 
-npareto: estimated number of Pareto observations.
+niter: number of iterations.
+
+postProb: matrix of posterior probabilities.
 
 bootstd: bootstrap standard errors of the estimators.
 }
@@ -43,7 +37,8 @@ This function fits a lognormal-Pareto mixture by means of the ECME algorithm.
 Estimation of a lognormal-Pareto mixture via the ECME algorithm.
 }
 \examples{
-mixFit <- LPfitEM(TN2016,0)
+ysim <- sort(rLnormParMix(100,.9,0,1,5,1))
+mixFit <- LPfitEM(ysim,1e-10,1000,.5)
 
 
 }

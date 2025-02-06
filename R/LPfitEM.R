@@ -2,34 +2,28 @@
 #'
 #' This function fits a lognormal-Pareto mixture by means of the ECME algorithm.
 #' @param y numerical vector: random sample from the mixture.
-#' @param minRank integer: minimum possible rank of the threshold.
-#' @param nboot number of bootstrap replications used for estimating the standard errors. If omitted, no standard errors are computed.
+#' @param eps non-negative scalar: tolerance for the stopping rule.
+#' @param maxiter non-negative integer: maximum number of iterations of the ECME algorithm.
+#' @param qxmin0 scalar, 0 < qxmin0 < 1: quantile level used for determining the starting value of xmin.
 #' @return A list with the following elements:
 #'
-#' xmin: estimated threshold.
-#'
-#' prior: estimated mixing weight.
-#'
-#' postProb: matrix of posterior probabilities.
-#'
-#' alpha: estimated Pareto shape parameter.
-#'
-#' mu: estimated expectation of the lognormal distribution on the lognormal scale.
-#'
-#' sigma: estimated standard deviation of the lognormal distribution on the lognormal scale.
+#' pars: estimated parameters (p, alpha, mu, sigma, xmin).
 #'
 #' loglik: maximized log-likelihood.
 #'
-#' nit: number of iterations.
+#' rankECME: estimated rank of xmin.
 #'
-#' npareto: estimated number of Pareto observations.
+#' niter: number of iterations.
+#'
+#' postProb: matrix of posterior probabilities.
 #'
 #' bootstd: bootstrap standard errors of the estimators.
 #' @details Estimation of a lognormal-Pareto mixture via the ECME algorithm.
 #' @keywords mixture; ECME algorithm.
 #' @export
 #' @examples
-#' mixFit <- LPfitEM(TN2016,0)
+#' ysim <- sort(rLnormParMix(100,.9,0,1,5,1))
+#' mixFit <- LPfitEM(ysim,1e-10,1000,.5)
 #'
 #'
 #' @importFrom Rdpack reprompt
@@ -78,7 +72,7 @@ LPfitEM <- function(y,eps,maxiter,qxmin0)
     post_p[1:n1,2] <- 0
     post_p[(n1+1):n,1] <- (p * f1[(n1+1):n]) / f[(n1+1):n]
     post_p[(n1+1):n,2] <- ((1-p) * f2[(n1+1):n]) / f[(n1+1):n]
-    if (p>=1-1/n)
+    if (p>=1-1/n) # || xmin>max(ys))
     {
       p = 1
       alpha <- NA
@@ -100,7 +94,7 @@ LPfitEM <- function(y,eps,maxiter,qxmin0)
 
     # CM step 2
 
-    xmin <- optimize(ll_lnormparmix,c(0,ys),p,mu,sigma,alpha,ys,maximum=TRUE)$maximum
+    xmin <- optimize(ll_lnormparmix,c(0,ys[n-1]),p,mu,sigma,alpha,ys,maximum=TRUE)$maximum
 
     pars[nit,] <- c(p, alpha, mu, sigma, xmin)
     loglik[nit] <- ll_lnormparmix(xmin,p,mu,sigma,alpha,ys)
@@ -126,7 +120,7 @@ LPfitEM <- function(y,eps,maxiter,qxmin0)
     nit = nit + 1
   }
   out <- list(pars = parsBestNA , loglik = max_loglik, rankECME = rankECME,
-              niter = nit - 1, post_p = post_p)
+              niter = nit - 1, postProb = post_p)
   return(out)
 }
 
