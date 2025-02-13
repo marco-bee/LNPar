@@ -4,7 +4,7 @@
 \alias{LPfitEM}
 \title{Estimating a lognormal-Pareto mixture via the ECME algorithm}
 \usage{
-LPfitEM(y, eps, maxiter, qxmin0)
+LPfitEM(y, eps, maxiter, qxmin0 = 0.5)
 }
 \arguments{
 \item{y}{numerical vector: random sample from the mixture.}
@@ -13,7 +13,7 @@ LPfitEM(y, eps, maxiter, qxmin0)
 
 \item{maxiter}{non-negative integer: maximum number of iterations of the ECME algorithm.}
 
-\item{qxmin0}{scalar, 0 < qxmin0 < 1: quantile level used for determining the starting value of xmin.}
+\item{qxmin0}{scalar, 0 < qxmin0 < 1: quantile level used for determining the starting value of xmin. Defaults to 0.5.}
 }
 \value{
 A list with the following elements:
@@ -22,7 +22,7 @@ pars: estimated parameters (p, alpha, mu, sigma, xmin).
 
 loglik: maximized log-likelihood.
 
-rankECME: estimated rank of xmin.
+thRank: estimated rank of xmin.
 
 niter: number of iterations.
 
@@ -38,7 +38,7 @@ Estimation of a lognormal-Pareto mixture via the ECME algorithm.
 }
 \examples{
 ysim <- sort(rLnormParMix(100,.9,0,1,5,1))
-mixFit <- LPfitEM(ysim,1e-10,1000,.5)
+mixFit <- LPfitEM(ysim,1e-10,1000)
 
 
 }

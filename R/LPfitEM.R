@@ -4,14 +4,14 @@
 #' @param y numerical vector: random sample from the mixture.
 #' @param eps non-negative scalar: tolerance for the stopping rule.
 #' @param maxiter non-negative integer: maximum number of iterations of the ECME algorithm.
-#' @param qxmin0 scalar, 0 < qxmin0 < 1: quantile level used for determining the starting value of xmin.
+#' @param qxmin0 scalar, 0 < qxmin0 < 1: quantile level used for determining the starting value of xmin. Defaults to 0.5.
 #' @return A list with the following elements:
 #'
 #' pars: estimated parameters (p, alpha, mu, sigma, xmin).
 #'
 #' loglik: maximized log-likelihood.
 #'
-#' rankECME: estimated rank of xmin.
+#' thRank: estimated rank of xmin.
 #'
 #' niter: number of iterations.
 #'
@@ -23,12 +23,12 @@
 #' @export
 #' @examples
 #' ysim <- sort(rLnormParMix(100,.9,0,1,5,1))
-#' mixFit <- LPfitEM(ysim,1e-10,1000,.5)
+#' mixFit <- LPfitEM(ysim,1e-10,1000)
 #'
 #'
 #' @importFrom Rdpack reprompt
 
-LPfitEM <- function(y,eps,maxiter,qxmin0)
+LPfitEM <- function(y,eps,maxiter,qxmin0=0.5)
 {
   pars <- matrix(0,maxiter,5)
   loglik <- rep(0,maxiter)
@@ -72,20 +72,6 @@ LPfitEM <- function(y,eps,maxiter,qxmin0)
     post_p[1:n1,2] <- 0
     post_p[(n1+1):n,1] <- (p * f1[(n1+1):n]) / f[(n1+1):n]
     post_p[(n1+1):n,2] <- ((1-p) * f2[(n1+1):n]) / f[(n1+1):n]
-    if (p>=1-1/n) # || xmin>max(ys))
-    {
-      p = 1
-      alpha <- NA
-      xmin = NA
-      mu <- mean(log(ys))
-      sigma <- sqrt(((n - 1)/n)) * sd(log(ys))
-      parsBestNA <- c(p[1], alpha, mu, sigma, xmin)
-      loglik <- sum(log(dlnorm(ys, mu, sigma)))
-      post_p[,1] <- 1
-      post_p[,2] <- 0
-      change = 0
-      break
-    }
 
     p <- mean(post_p[,1])              # CM step: prior probabilities
     alpha <- n*(1-p) / (sum(t(post_p[(n1+1):n,2]) %*% log(y2/xmin)))
@@ -94,8 +80,22 @@ LPfitEM <- function(y,eps,maxiter,qxmin0)
 
     # CM step 2
 
-    xmin <- optimize(ll_lnormparmix,c(0,ys[n-1]),p,mu,sigma,alpha,ys,maximum=TRUE)$maximum
-
+    xmin <- optimize(ll_lnormparmix,c(0,ys[n]+.1),p,mu,sigma,alpha,ys,maximum=TRUE)$maximum
+    if (xmin > ys[n])
+    {
+      p = 1
+      alpha <- NA
+      xmin = NA
+      thRank <- NA
+      mu <- mean(log(ys))
+      sigma <- sqrt(((n - 1)/n)) * sd(log(ys))
+      parsBestNA <- c(p[1], alpha, mu, sigma, xmin)
+      max_loglik <- sum(log(dlnorm(ys, mu, sigma)))
+      post_p[,1] <- 1
+      post_p[,2] <- 0
+      change = 0
+      break
+    }
     pars[nit,] <- c(p, alpha, mu, sigma, xmin)
     loglik[nit] <- ll_lnormparmix(xmin,p,mu,sigma,alpha,ys)
 
@@ -108,18 +108,18 @@ LPfitEM <- function(y,eps,maxiter,qxmin0)
       parsBestNA <- parsb
       rmin = parsb[5]
       max_loglik = loglik[indice]
-      rankECME = length(ys[ys<=rmin])
+      thRank = length(ys[ys<=rmin])
     }
     else
     {
       parsBestNA <- pars[nit,]
       rmin = pars[5]
       max_loglik = loglik[nit]
-      rankECME = length(ys[ys<=rmin])
+      thRank = length(ys[ys<=rmin])
     }
     nit = nit + 1
   }
-  out <- list(pars = parsBestNA , loglik = max_loglik, rankECME = rankECME,
+  out <- list(pars = parsBestNA , loglik = max_loglik, thRank = thRank,
               niter = nit - 1, postProb = post_p)
   return(out)
 }
