@@ -1,8 +1,10 @@
-#' Testing for a Pareto tail
+#' Profile-based testing for a Pareto tail
 #'
 #' This function draws a bootstrap sample from the null (lognormal) distribution and computes the test for the null hypothesis of
 #' a pure lognormal distribution versus the alternative of a lognormal-Pareto
-#' mixture. To be only called from ParallelTest.
+#' mixture, where the parameters of the latter are estimated via maximum profile
+#' likelihood. To be only called from ParallelTest. Estimation unde rthe alternative is perfromed
+#'
 #' @param x list: sequence of integers 1,...,K, where K is the mumber of datasets. Set x = 1 in case
 #' of a single dataset.
 #' @param n sample size.

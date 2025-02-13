@@ -1,13 +1,13 @@
-#' Profile-based testing for a Pareto tail
+#' ECME-based testing for a Pareto tail
 #'
 #' This function computes the bootstrap test for the null hypothesis of
 #' a pure lognormal distribution versus the alternative of a lognormal-Pareto
-#' mixture, where the parameters of the latter are estimated via maximum profile
+#' mixture, where the parameters of the latter are estimated by means of the
+#' ECME algorithm.
 #' likelihood. Implemented via parallel computing.
 #' @param nboot number of bootstrap replications.
 #' @param y observed data.
 #' @param obsTest value of the test statistics computed with the data under analysis.
-#' @param minRank minimum possible rank of the threshold.
 #' @return A list with the following elements:
 #'
 #' LR: nboot simulated values of the llr test under the null hypothesis.
@@ -23,9 +23,9 @@
 #' ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))
 #' obsTest <- 2*(ell1-ellNull)
 #' nboot = 2
-#' TestRes = ParallelTest(nboot,TN2016,obsTest,minRank)}
+#' TestRes = ParallelTestEM(nboot,TN2016,obsTest)}
 
-ParallelTest = function(nboot,y,obsTest,minRank)
+ParallelTestEM = function(nboot,y,obsTest)
 {
 nreps.list <- sapply(1:nboot, list)
 n = length(y)
@@ -37,7 +37,7 @@ if (nzchar(chk) && chk == "TRUE") {
 }
 clust <- parallel::makeCluster(n.cores)
 LRVec = rep(0,nboot)
-temp <- parallel::parLapply(clust,nreps.list,LPtest,n,mean(log(y)),sd(log(y)),minRank)
+temp <- parallel::parLapply(clust,nreps.list,LPtestEM,n,mean(log(y)),sd(log(y)))
 parallel::stopCluster(cl=clust)
 for (i in 1:nboot)
 {
