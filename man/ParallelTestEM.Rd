@@ -29,7 +29,7 @@ likelihood. Implemented via parallel computing.
 }
 \examples{
 \donttest{minRank = 90
-mixFit <- LPfit(TN2016,minRank,0)
+mixFit <- LPfitEM(TN2016,1e-12,1000)
 ell1 <- mixFit$loglik
 estNull <- c(mean(log(TN2016)),sd(log(TN2016)))
 ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))
