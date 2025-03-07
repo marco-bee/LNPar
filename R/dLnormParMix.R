@@ -1,4 +1,4 @@
-#' density of a mixture of a lognormal and a Pareto r.v.
+#' density of a mixture of a lognormal and a Pareto r.v. non
 #'
 #' This function computes the density of a mixture of a lognormal and a Pareto r.v.
 #' @param x non-negative numerical vector: values where the density has to be evaluated.
