@@ -88,8 +88,8 @@ LPfitEM <- function(y,eps,maxiter,qxmin0=0.5)
       xmin = NA
       thRank <- NA
       mu <- mean(log(ys))
-      sigma <- sqrt(((n - 1)/n)) * sd(log(ys))
-      parsBestNA <- c(p[1], alpha, mu, sigma, xmin)
+      sigma <- sd(log(ys))
+      parsBestNA <- c(p, alpha, mu, sigma, xmin)
       max_loglik <- sum(log(dlnorm(ys, mu, sigma)))
       post_p[,1] <- 1
       post_p[,2] <- 0

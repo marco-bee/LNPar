@@ -102,7 +102,7 @@ if (n1>0)
         prior[1] = NA
       alpha <- NA				# M step: alpha
       mu <- mean(log(y))
-      sigma <- ((N-1)/N)*sd(log(y))
+      sigma <- sd(log(y))
       loglik <- sum(log(dlnorm(y,mu,sigma)))                  # evaluate log-likelihood function
       change = 0
       break
