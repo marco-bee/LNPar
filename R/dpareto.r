@@ -1,7 +1,7 @@
 #' density of a Pareto r.v.
 #'
 #' This function evaluates the density of a Pareto r.v.s
-#' @param x numerical vector (>xmin): values where the density has to be evaluated.
+#' @param x numerical vector (>=xmin): values where the density has to be evaluated.
 #' @param xmin positive scalar: Pareto scale parameter.
 #' @param alpha positive scalar: Pareto shape parameter.
 #' @return Density of the Pareto distribution evaluated at x.
