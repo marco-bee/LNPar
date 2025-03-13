@@ -25,7 +25,7 @@ LPtestEM <- function(x,n,muNull,sigmaNull)
 {
   ysim <- sort(rlnorm(n,muNull,sigmaNull))
   est0 <- c(mean(log(ysim)),sd(log(ysim)))
-  ell0 <- sum(log(dlnorm(ysim,est0[1],est0[2])))
+  ell0 <- sum(log(dlnorm(ysim,muNull,sigmaNull)))
   temp1 <- LPfitEM(ysim,eps=1e-12,maxiter=1000)
   ell1 <- temp1$loglik
   LR <- pmax(0,2*(ell1-ell0)) # sometimes slightly negative, as ell1 is computed numerically
