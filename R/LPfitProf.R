@@ -91,7 +91,7 @@ LPfitProf <- function(y,minRank,nboot)
     }
     clust <- parallel::makeCluster(n.cores)
     BootMat = matrix(0,nboot,5)
-    temp <- parallel::parLapply(clust,nreps.list, MLEBoot,ys,minRank,p0,alpha0,mean(ys),var(ys))
+    temp <- parallel::parLapply(clust,nreps.list, ProfBoot,ys,minRank,p0,alpha0,mean(ys),var(ys))
     parallel::stopCluster(cl=clust)
     for (i in 1:nboot)
     {

@@ -5,6 +5,7 @@
 #' @param eps non-negative scalar: tolerance for the stopping rule.
 #' @param maxiter non-negative integer: maximum number of iterations of the ECME algorithm.
 #' @param qxmin0 scalar, 0 < qxmin0 < 1: quantile level used for determining the starting value of xmin. Defaults to 0.5.
+#' @param nbbot non-negative integer: number of bootstrap replications used for estimating the standard errors. If omitted, no standard errors are computed.
 #' @return A list with the following elements:
 #'
 #' pars: estimated parameters (p, alpha, mu, sigma, xmin).
@@ -15,20 +16,24 @@
 #'
 #' niter: number of iterations.
 #'
+#' npareto: estimated number of Pareto observations.
+#'
 #' postProb: matrix of posterior probabilities.
 #'
+#' bootEst: matrix of estimated parameters at each bootstrap replication.
+#'
 #' bootstd: bootstrap standard errors of the estimators.
-#' @details Estimation of a lognormal-Pareto mixture via the ECME algorithm.
+#' @details Estimation of a lognormal-Pareto mixture via the ECME algorithm. Standard errors are computed via non-parametric bootstrap.
 #' @keywords mixture; ECME algorithm.
 #' @export
 #' @examples
 #' ysim <- sort(rLnormParMix(100,.9,0,1,5,1))
-#' mixFit <- LPfitEM(ysim,1e-10,1000)
+#' mixFit <- LPfitEM(ysim,1e-10,nboot=1000)
 #'
 #'
 #' @importFrom Rdpack reprompt
 
-LPfitEM <- function(y,eps,maxiter,qxmin0=0.5)
+LPfitEM <- function(y,eps,maxiter,qxmin0=0.5,nboot=0)
 {
   pars <- matrix(0,maxiter,5)
   loglik <- rep(0,maxiter)
@@ -109,6 +114,7 @@ LPfitEM <- function(y,eps,maxiter,qxmin0=0.5)
       rmin = parsb[5]
       max_loglik = loglik[indice]
       thRank = length(ys[ys<=rmin])
+      npareto <- n * (1-parsBestNA[1])
     }
     else
     {
@@ -116,11 +122,37 @@ LPfitEM <- function(y,eps,maxiter,qxmin0=0.5)
       rmin = pars[5]
       max_loglik = loglik[nit]
       thRank = length(ys[ys<=rmin])
+      npareto <- n * (1-parsBestNA[1])
     }
     nit = nit + 1
   }
-  out <- list(pars = parsBestNA , loglik = max_loglik, thRank = thRank,
-              niter = nit - 1, postProb = post_p)
-  return(out)
+  if (nboot==0)
+  {
+    results <- list(pars = parsBestNA , loglik = max_loglik, thRank = thRank,
+                niter = nit - 1, postProb = post_p, npareto=npareto)
+    return(results)
+  }
+  else
+  {
+    nreps.list <- sapply(1:nboot, list)
+    chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
+    if (nzchar(chk) && chk == "TRUE") {
+      n.cores <- 2L
+    } else {
+      n.cores <- parallel::detectCores()
+    }
+    clust <- parallel::makeCluster(n.cores)
+    BootMat = matrix(0,nboot,5)
+    temp <- parallel::parLapply(clust,nreps.list, ECMEBoot,ys,eps,maxiter)
+    parallel::stopCluster(cl=clust)
+    for (i in 1:nboot)
+    {
+      BootMat[i,] = as.vector(unlist(temp[[i]]))
+    }
+    stddev = apply(BootMat,2,sd,na.rm=TRUE)
+    results <- list(pars = parsBestNA , loglik = max_loglik, thRank = thRank,
+            niter = nit - 1, postProb = post_p, npareto=npareto,bootEst=BootMat,bootStd=stddev)
+                        return(results)
+  }
 }
 
