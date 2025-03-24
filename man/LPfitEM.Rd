@@ -15,7 +15,7 @@ LPfitEM(y, eps, maxiter, qxmin0 = 0.5, nboot = 0)
 
 \item{qxmin0}{scalar, 0 < qxmin0 < 1: quantile level used for determining the starting value of xmin. Defaults to 0.5.}
 
-\item{nbbot}{non-negative integer: number of bootstrap replications used for estimating the standard errors. If omitted, no standard errors are computed.}
+\item{nboot}{non-negative integer: number of bootstrap replications used for estimating the standard errors. If omitted, no standard errors are computed.}
 }
 \value{
 A list with the following elements:
@@ -44,7 +44,7 @@ Estimation of a lognormal-Pareto mixture via the ECME algorithm. Standard errors
 }
 \examples{
 ysim <- sort(rLnormParMix(100,.9,0,1,5,1))
-mixFit <- LPfitEM(ysim,1e-10,nboot=1000)
+mixFit <- LPfitEM(ysim,eps=1e-10,maxiter=1000,nboot=1000)
 
 
 }
