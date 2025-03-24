@@ -25,6 +25,3 @@ This function draws a bootstrap sample and uses it to estimate the parameters of
 \details{
 At each bootstrap replication, the mixture is estimated via the ECME algorithm. The function is typically called by LPfitEM.
 }
-\keyword{ECME}
-\keyword{algorithm.}
-\keyword{mixture;}

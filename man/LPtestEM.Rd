@@ -33,9 +33,3 @@ muNull = mean(log(TN2016))
 sigmaNull = sd(log(TN2016))
 res = LPtestEM(1,n,muNull,sigmaNull)
 }
-\keyword{likelihood;}
-\keyword{log-likelihood}
-\keyword{mixture;}
-\keyword{profile}
-\keyword{ratio}
-\keyword{test.}

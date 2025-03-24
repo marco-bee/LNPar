@@ -52,6 +52,3 @@ mixFit <- LPfitProf(TN2016,90,0)
 \insertRef{bee24a}{LNPar}
 }
 }
-\keyword{likelihood.}
-\keyword{mixture;}
-\keyword{profile}
