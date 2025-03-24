@@ -17,7 +17,7 @@
 #' @export
 #' @examples
 #' \donttest{minRank = 90
-#' mixFit <- LPfit(TN2016,minRank,0)
+#' mixFit <- LPfitProf(TN2016,minRank,0)
 #' ell1 <- mixFit$loglik
 #' estNull <- c(mean(log(TN2016)),sd(log(TN2016)))
 #' ellNull <- sum(log(dlnorm(TN2016,estNull[1],estNull[2])))

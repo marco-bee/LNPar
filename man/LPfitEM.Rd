@@ -43,8 +43,8 @@ This function fits a lognormal-Pareto mixture by means of the ECME algorithm.
 Estimation of a lognormal-Pareto mixture via the ECME algorithm. Standard errors are computed via non-parametric bootstrap.
 }
 \examples{
-ysim <- sort(rLnormParMix(100,.9,0,1,5,1))
-mixFit <- LPfitEM(ysim,eps=1e-10,maxiter=1000,nboot=1000)
+ysim <- rLnormParMix(100,.9,0,1,5,1)
+mixFit <- LPfitEM(ysim,eps=1e-10,maxiter=1000,nboot=0)
 
 
 }

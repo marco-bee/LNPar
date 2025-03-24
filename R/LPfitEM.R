@@ -27,8 +27,8 @@
 #' @keywords mixture; ECME algorithm.
 #' @export
 #' @examples
-#' ysim <- sort(rLnormParMix(100,.9,0,1,5,1))
-#' mixFit <- LPfitEM(ysim,eps=1e-10,maxiter=1000,nboot=1000)
+#' ysim <- rLnormParMix(100,.9,0,1,5,1)
+#' mixFit <- LPfitEM(ysim,eps=1e-10,maxiter=1000,nboot=0)
 #'
 #'
 #' @importFrom Rdpack reprompt

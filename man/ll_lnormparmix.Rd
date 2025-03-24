@@ -28,6 +28,6 @@ assuming to know the numerical values of all the other parameters.
 }
 \examples{
 y <- rLnormParMix(100,.5,0,1,4,1.5)
-llMix <- ll_lnormparmix(x,pi,mu,sigma,alpha,y(3,.5,0,1,1.5,y)
+llMix <- ll_lnormparmix(5,.5,0,1,4,y)
 }
 \keyword{mixture.}
