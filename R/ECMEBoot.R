@@ -7,6 +7,7 @@
 #' @param eps non-negative scalar: starting value of the log-expectation of the lognormal distribution on the log scale.
 #' @param maxiter non-negative integer: starting value of the log-variance of the lognormal distribution on the log scale.
 #' @return Estimated parameters obtained from a bootstrap sample.
+#' @keywords mixture; ECME algorithm.
 #' @details At each bootstrap replication, the mixture is estimated via the ECME algorithm. The function is typically called by LPfitEM.
 #' @export
 

@@ -10,6 +10,7 @@
 #' @param mu0 scalar: starting value of the log-expectation of the lognormal distribution on the log scale.
 #' @param Psi0 non-negative scalar: starting value of the log-variance of the lognormal distribution on the log scale.
 #' @return Estimated parameters obtained from a bootstrap sample.
+#' @keywords mixture; profile likelihood; EM algorithm.
 #' @details At each bootstrap replication, the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
 #' where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfit (see the example below).
 #' @export

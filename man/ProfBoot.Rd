@@ -36,3 +36,8 @@ where n is the sample size and ys is the sample in ascending order. The function
 Bee, M. (2022), “On discriminating between lognormal and Pareto tail: a mixture-based approach”,
 Advances in Data Analysis and Classification, https://doi.org/10.1007/s11634-022-00497-4
 }
+\keyword{EM}
+\keyword{algorithm.}
+\keyword{likelihood;}
+\keyword{mixture;}
+\keyword{profile}

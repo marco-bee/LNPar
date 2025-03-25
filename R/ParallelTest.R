@@ -13,6 +13,7 @@
 #' LR: nboot simulated values of the llr test under the null hypothesis.
 #'
 #' pval: p-value of the test.
+#' @keywords mixture; profile likelihood; log-likelihood ratio test.
 #' @export
 #' @examples
 #' \donttest{minRank = 90

@@ -24,6 +24,7 @@
 #'
 #' bootstd: bootstrap standard errors of the estimators.
 #' @details Estimation of a lognormal-Pareto mixture via the ECME algorithm. Standard errors are computed via non-parametric bootstrap.
+#' @keywords mixture; ECME algorithm.
 #' @export
 #' @examples
 #' ysim <- rLnormParMix(100,.9,0,1,5,1)

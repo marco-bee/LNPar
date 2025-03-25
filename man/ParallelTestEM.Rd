@@ -37,3 +37,9 @@ obsTest <- 2*(ell1-ellNull)
 nboot = 2
 TestRes = ParallelTestEM(nboot,TN2016,obsTest)}
 }
+\keyword{likelihood;}
+\keyword{log-likelihood}
+\keyword{mixture;}
+\keyword{profile}
+\keyword{ratio}
+\keyword{test.}

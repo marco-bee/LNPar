@@ -12,6 +12,7 @@
 #' @return A list with the following elements:
 #'
 #' LR: observed value of the llr test.
+#' @keywords mixture; profile likelihood; log-likelihood ratio test.
 #' @export
 #' @import stats
 #' @examples
