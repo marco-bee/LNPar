@@ -48,6 +48,3 @@ mixFit <- LPfitEM(ysim,eps=1e-10,maxiter=1000,nboot=0)
 
 
 }
-\keyword{ECME}
-\keyword{algorithm.}
-\keyword{mixture;}

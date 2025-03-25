@@ -28,7 +28,6 @@
 #' @details Estimation is implemented as in Bee (2022). As of standard errors, at each bootstrap replication the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
 #' where n is the sample size and ys is the sample sorted in ascending order. The latter procedure is implemented via parallel computing.
 #' If the algorithm does not converge in 1000 iterations, a message is displayed.
-#' @keywords mixture; profile likelihood.
 #' @export
 #' @examples
 #' mixFit <- LPfitProf(TN2016,90,0)

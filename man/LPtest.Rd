@@ -41,9 +41,3 @@ res = LPtest(1,n,muNull,sigmaNull,minRank)
 \insertRef{bee24a}{LNPar}
 }
 }
-\keyword{likelihood;}
-\keyword{log-likelihood}
-\keyword{mixture;}
-\keyword{profile}
-\keyword{ratio}
-\keyword{test.}
