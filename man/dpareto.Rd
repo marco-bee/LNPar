@@ -20,6 +20,6 @@ Density of the Pareto distribution evaluated at x.
 This function evaluates the density of a Pareto r.v.s
 }
 \examples{
-parDens <- dpareto(5,4,1.5)
+parDens <- dpareto(5,4,2)
 }
 \keyword{density.}
