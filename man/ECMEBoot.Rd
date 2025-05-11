@@ -14,7 +14,7 @@ of a single dataset.}
 
 \item{eps}{non-negative scalar: starting value of the log-expectation of the lognormal distribution on the log scale.}
 
-\item{maxiter}{non-negative integer: starting value of the log-variance of the lognormal distribution on the log scale.}
+\item{maxiter}{non-negative integer: maximum number of iterations of the ECME algorithm.}
 }
 \value{
 Estimated parameters obtained from a bootstrap sample.
