@@ -8,7 +8,7 @@
 #' @param nboot non-negative integer: number of bootstrap replications used for estimating the standard errors. If omitted, no standard errors are computed.
 #' @return A list with the following elements:
 #'
-#' pars: estimated parameters (p, alpha, mu, sigma, xmin).
+#' pars: estimated parameters (p, mu, sigma, xmin, alpha).
 #'
 #' loglik: maximized log-likelihood.
 #'
@@ -43,10 +43,10 @@ LPfitEM <- function(y,eps,maxiter,qxmin0=0.5,nboot=0)
 
   xmin0 <- quantile(ys,qxmin0)
   p0 <- length(ys[ys<xmin0])/n
-  alpha0 <- length(ys[ys>xmin0]) / (sum(log(ys[ys>xmin0]/xmin0)))
   mu0 <- mean(log(ys))+1
   sigma0 <- sd(log(ys))
-  parold = c(p0,alpha0,mu0,sigma0,xmin0)
+  alpha0 <- length(ys[ys>xmin0]) / (sum(log(ys[ys>xmin0]/xmin0)))
+  parold = c(p0,mu0,sigma0,xmin0,alpha0)
   post_p <- matrix(0,n,2)		# open matrix for posterior probabilities
   y1 <- ys[ys<=xmin0]
   y2 <- ys[ys>xmin0]
@@ -93,14 +93,14 @@ LPfitEM <- function(y,eps,maxiter,qxmin0=0.5,nboot=0)
       thRank <- NA
       mu <- mean(log(ys))
       sigma <- sd(log(ys))
-      parsBestNA <- c(p, alpha, mu, sigma, xmin)
+      parsBestNA <- c(p, mu, sigma, xmin, alpha)
       max_loglik <- sum(log(dlnorm(ys, mu, sigma)))
       post_p[,1] <- 1
       post_p[,2] <- 0
       change = 0
       break
     }
-    pars[nit,] <- c(p, alpha, mu, sigma, xmin)
+    pars[nit,] <- c(p, mu, sigma, xmin, alpha)
     loglik[nit] <- ll_lnormparmix(xmin,p,mu,sigma,alpha,ys)
 
     change = max(abs(pars[nit,]-parold))

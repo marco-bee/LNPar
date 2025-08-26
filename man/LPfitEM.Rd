@@ -20,7 +20,7 @@ LPfitEM(y, eps, maxiter, qxmin0 = 0.5, nboot = 0)
 \value{
 A list with the following elements:
 
-pars: estimated parameters (p, alpha, mu, sigma, xmin).
+pars: estimated parameters (p, mu, sigma, xmin, alpha).
 
 loglik: maximized log-likelihood.
 

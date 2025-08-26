@@ -2,7 +2,7 @@
 #'
 #' This function simulates random numbers for a mixture of a lognormal and a Pareto r.v.
 #' @param n positive integer: number of simulated random numbers.
-#' @param pi scalar, 0 < pi < 1: mixing weight.
+#' @param p scalar, 0 < p < 1: mixing weight.
 #' @param mu scalar: expected value of the lognormal distribution on the log scale.
 #' @param sigma positive scalar: standard deviation of the lognormal distribution on the log scale.
 #' @param xmin positive scalar: threshold.
@@ -13,9 +13,9 @@
 #' @examples
 #' ySim <- rLnormParMix(100,.5,0,1,4,1.5)
 
-rLnormParMix = function(n,pi,mu,sigma,xmin,alpha)
+rLnormParMix = function(n,p,mu,sigma,xmin,alpha)
 {
-  p <- rbinom(n,1,pi)
+  p <- rbinom(n,1,p)
   y1 <- rlnorm(sum(p),mu,sigma)
   y2 <- rpareto(n-sum(p), xmin, alpha)
   if (sum(p)==n)

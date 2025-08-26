@@ -4,12 +4,12 @@
 \alias{rLnormParMix}
 \title{Random number simulation for a mixture of a lognormal and a Pareto r.v.}
 \usage{
-rLnormParMix(n, pi, mu, sigma, xmin, alpha)
+rLnormParMix(n, p, mu, sigma, xmin, alpha)
 }
 \arguments{
 \item{n}{positive integer: number of simulated random numbers.}
 
-\item{pi}{scalar, 0 < pi < 1: mixing weight.}
+\item{p}{scalar, 0 < p < 1: mixing weight.}
 
 \item{mu}{scalar: expected value of the lognormal distribution on the log scale.}
 
