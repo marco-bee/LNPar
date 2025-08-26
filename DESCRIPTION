@@ -1,6 +1,6 @@
 Package: LNPar
 Title: Estimation and Testing for a Lognormal-Pareto Mixture
-Version: 1.1.1
+Version: 1.1.2
 Authors@R: 
     person("Marco", "Bee", , "marco.bee@unitn.it", role = c("aut", "cre"),
            comment = c(ORCID = '0000-0002-9579-3650'))
