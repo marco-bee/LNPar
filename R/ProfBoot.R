@@ -1,6 +1,6 @@
 #' Bootstrap standard errors for the estimators of a lognormal-Pareto mixture
 #'
-#' This function draws a bootstrap sample and uses it to estimate the parameters of a lognormal-Pareto mixture distribution. Since this is typically called by LPfit, see the help of LPfit for examples.
+#' This function draws a bootstrap sample and uses it to estimate the parameters of a lognormal-Pareto mixture distribution. Since this is typically called by LPfitProf, see the help of LPfitProf for examples.
 #' @param x list: sequence of integers 1,...,K, where K is the mumber of datasets. Set x = 1 in case
 #' of a single dataset.
 #' @param y numerical vector: observed sample.
@@ -11,7 +11,7 @@
 #' @param Psi0 non-negative scalar: starting value of the log-variance of the lognormal distribution on the log scale.
 #' @return Estimated parameters obtained from a bootstrap sample.
 #' @details At each bootstrap replication, the mixture is estimated with thresholds equal to ys(minRank), ys(minRank+1),..., ys(n),
-#' where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfit (see the example below).
+#' where n is the sample size and ys is the sample in ascending order. The function is typically called by LPfitProf.
 #' @export
 #' @references  Bee, M. (2022), “On discriminating between lognormal and Pareto tail: a mixture-based approach”,
 #' Advances in Data Analysis and Classification, https://doi.org/10.1007/s11634-022-00497-4
