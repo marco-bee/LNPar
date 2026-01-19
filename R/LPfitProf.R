@@ -50,12 +50,10 @@ LPfitProf <- function(y,minRank,nboot)
   alpha0 <- length(ys[ys>a0]) / (sum(log(ys[ys>a0]/a0)))
   mu0 <- mean(log(ys))+1
   Psi0 <- var(log(ys))
-#  th <- ys
   th <- ys[minRank:(n-1)]
   nthresh <- length(th)
   resMat <- matrix(0,nthresh,5)
   paretoObs <- cbind(th,matrix(0,nthresh,2))
-  # for (i in minRank:(n-1))
   for (i in 1:nthresh)
   {
     a <- th[i]
@@ -82,12 +80,7 @@ LPfitProf <- function(y,minRank,nboot)
   else
   {
     nreps.list <- sapply(1:nboot, list)
-    chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-    if (nzchar(chk) && chk == "TRUE") {
-      n.cores <- 2L
-    } else {
-      n.cores <- parallel::detectCores()
-    }
+    n.cores <- 2L
     clust <- parallel::makeCluster(n.cores)
     BootMat = matrix(0,nboot,5)
     temp <- parallel::parLapply(clust,nreps.list, ProfBoot,ys,minRank,p0,alpha0,mean(ys),var(ys))

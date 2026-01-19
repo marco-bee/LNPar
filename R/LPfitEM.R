@@ -134,12 +134,7 @@ LPfitEM <- function(y,eps,maxiter,qxmin0=0.5,nboot=0)
   else
   {
     nreps.list <- sapply(1:nboot, list)
-    chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-    if (nzchar(chk) && chk == "TRUE") {
-      n.cores <- 2L
-    } else {
-      n.cores <- parallel::detectCores()
-    }
+    n.cores <- 2L
     clust <- parallel::makeCluster(n.cores)
     BootMat = matrix(0,nboot,5)
     temp <- parallel::parLapply(clust,nreps.list, ECMEBoot,ys,eps,maxiter)
