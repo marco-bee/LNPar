@@ -28,7 +28,12 @@ ParallelTestEM = function(nboot,y,obsTest)
 {
 nreps.list <- sapply(1:nboot, list)
 n = length(y)
-n.cores <- 2L
+chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
+if (nzchar(chk) && chk == "TRUE") {
+  n.cores <- 2L
+} else {
+  n.cores <- parallel::detectCores()
+}
 clust <- parallel::makeCluster(n.cores)
 LRVec = rep(0,nboot)
 temp <- parallel::parLapply(clust,nreps.list,LPtestEM,n,mean(log(y)),sd(log(y)))
